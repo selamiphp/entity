@@ -210,7 +210,6 @@ class MyPhpArrayParserClass extends  \PHPUnit_Framework_TestCase
     {
         $parser = new PhpArray($this->invalidSchema[6]);
         $isFormatOk = $parser->checkFormat();
-        var_dump($isFormatOk);
         $this->assertFalse($isFormatOk);
     }
 }

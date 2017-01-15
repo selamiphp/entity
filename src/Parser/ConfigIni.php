@@ -7,9 +7,9 @@ use Selami\Entity\Interfaces\ParserInterface;
 use UnexpectedValueException;
 use Selami\Entity\Exception\FileNotFoundException;
 
-
 /**
  * Config Ini Parser
+ *
  * @package Selami\Entity\Parser
  */
 class ConfigIni implements ParserInterface
@@ -18,8 +18,9 @@ class ConfigIni implements ParserInterface
 
     /**
      * Config constructor.
-     * @param string $schemaConfig
-     * @param bool $isFile
+     *
+     * @param  string $schemaConfig
+     * @param  bool   $isFile
      * @throws FileNotFoundException
      */
     public function __construct(string $schemaConfig, bool $isFile = false)

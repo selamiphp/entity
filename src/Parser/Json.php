@@ -10,6 +10,7 @@ use Selami\Entity\Exception\FileNotFoundException;
 
 /**
  * Json Parser
+ *
  * @package Selami\Entity\Parser
  */
 class Json implements ParserInterface
@@ -18,8 +19,9 @@ class Json implements ParserInterface
 
     /**
      * Json constructor.
-     * @param string $schemaConfig
-     * @param bool $isFile
+     *
+     * @param  string $schemaConfig
+     * @param  bool   $isFile
      * @throws FileNotFoundException
      */
     public function __construct(string $schemaConfig, bool $isFile = false)

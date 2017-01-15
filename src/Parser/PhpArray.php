@@ -7,9 +7,9 @@ use Selami\Entity\Interfaces\ParserInterface;
 use UnexpectedValueException;
 use Selami\Entity\Exception\FileNotFoundException;
 
-
 /**
  * Array Parser
+ *
  * @package Selami\Entity\Parser
  */
 class PhpArray implements ParserInterface
@@ -18,13 +18,17 @@ class PhpArray implements ParserInterface
 
     /**
      * Config constructor.
-     * @param string $schemaConfig
+     *
+     * @param  string $schemaConfig
      * @throws FileNotFoundException
      */
     public function __construct(string $schemaConfig)
     {
         if (!file_exists($schemaConfig)) {
-            $message = sprintf('File: %s not found. please provide full path for file names', $schemaConfig);
+            $message = sprintf(
+                'File: %s not found. please provide full path for file names',
+                $schemaConfig
+            );
             throw new FileNotFoundException($message);
         }
         $this->schemaConfig =  $schemaConfig;
@@ -35,17 +39,12 @@ class PhpArray implements ParserInterface
      */
     public function parse()
     {
-        //$errorReportingValue = ini_get('error_reporting');
-        //error_reporting(-1);
         try {
-            $schema = require $this->schemaConfig;
+            $schema = include $this->schemaConfig;
         } catch (\Exception $e) {
             throw new UnexpectedValueException($e->getMessage());
         } catch (\Error $e) {
             throw new UnexpectedValueException($e->getMessage());
-        }
-        finally {
-           // error_reporting($errorReportingValue);
         }
         if (!is_array($schema)) {
             throw new UnexpectedValueException('Config file does not return an array.');
@@ -59,7 +58,7 @@ class PhpArray implements ParserInterface
     public function checkFormat()
     {
         try {
-            $schema = require $this->schemaConfig;
+            $schema = include $this->schemaConfig;
             if (!is_array($schema)) {
                 return false;
             }
@@ -70,6 +69,5 @@ class PhpArray implements ParserInterface
             // will return false
         }
         return false;
-
     }
 }

@@ -20,7 +20,12 @@
     "require-dev": {
         "phpunit/phpunit": "^5.7.5",
         "phpunit/phpcov": "^3.1",
-        "satooshi/php-coveralls": "^1.0"
+        "satooshi/php-coveralls": "^1.0",
+        "symfony/yaml": "^3.2"
+    },
+    "suggest":{
+        "ext-yaml": "Needed to support native yaml parser",
+        "symfony/yaml": "Needed to support yaml parser if yaml extension not installed"
     },
     "autoload": {
         "psr-4": {
