@@ -1,5 +1,13 @@
 <?php
 
+if (!function_exists('mockAssert')) {
+    function mockAssert($expression)
+    {
+        throw new AssertionError(sprintf('%s failed', $expression));
+    }
+}
+
+
 return [
     'schema' => [
         'id' => [
@@ -10,7 +18,7 @@ return [
         ],
         'age' => [
             'type' => 'int',
-            'length' => \assert('2 < 1'),
+            'length' => mockAssert('2 < 1'),
 
         ],
         'is_active' => [

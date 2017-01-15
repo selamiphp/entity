@@ -10,7 +10,7 @@ return [
         ],
         'age' => [
             'type' => 'int',
-            'length' => PHP_INT_MIN-1,
+            'length' => intdiv(PHP_INT_MIN, 0.5),
 
         ],
         'is_active' => [

@@ -1,10 +1,12 @@
 <?php
 
+if (!function_exists('testTypeErrorSampleFunction')){
+    function testTypeErrorSampleFunction (int $parameter)
+    {
 
-function test_type_error_sample_function (int $parameter)
-{
-
+    }
 }
+
 
 return [
     'schema' => [
@@ -15,7 +17,7 @@ return [
             'max' => 999
         ],
         'age' => [
-            'type' => test_type_error_sample_function('int'),
+            'type' => testTypeErrorSampleFunction('int'),
             'length' => 3,
 
         ],

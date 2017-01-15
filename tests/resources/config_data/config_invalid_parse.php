@@ -12,7 +12,7 @@ return [
             'type' => 'int',
             'length' => 3,
 
-        ],
+        ]],
         'is_active' => [
             'type' => 'enum',
             'options' => [0,1]

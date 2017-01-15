@@ -56,9 +56,9 @@ options[] = 1
      */
     public function shouldReturnArrayCorrectly()
     {
-        $serializer = new ConfigIni(dirname(__DIR__) . '/resources/config_data/config.ini', true);
-        $this->assertInstanceOf(ParserInterface::class, $serializer);
-        $schema  = $serializer->parse();
+        $parser = new ConfigIni(dirname(__DIR__) . '/resources/config_data/config.ini', true);
+        $this->assertInstanceOf(ParserInterface::class, $parser);
+        $schema  = $parser->parse();
         $this->assertArrayHasKey('schema', $schema );
         $this->assertArrayHasKey('id', $schema ['schema']);
         $this->assertArrayHasKey('age', $schema ['schema']);
@@ -76,8 +76,8 @@ options[] = 1
      */
     public function shouldThrowUnexpectedValueExceptionForInvalidConfigIni()
     {
-        $serializer = new ConfigIni($this->invalidSchema, false);
-        $serializer->parse();
+        $parser = new ConfigIni($this->invalidSchema, false);
+        $parser->parse();
     }
 
     /**
@@ -95,8 +95,8 @@ options[] = 1
      */
     public function shouldReturnTrueForCheckFormatMethod()
     {
-        $serializer = new ConfigIni($this->validSchema, false);
-        $isFormatOk = $serializer->checkFormat();
+        $parser = new ConfigIni($this->validSchema, false);
+        $isFormatOk = $parser->checkFormat();
         $this->assertTrue($isFormatOk);
     }
     /**
@@ -104,8 +104,8 @@ options[] = 1
      */
     public function shouldReturnFalseForCheckFormatMethod()
     {
-        $serializer = new ConfigIni($this->invalidSchema, false);
-        $isFormatOk = $serializer->checkFormat();
+        $parser = new ConfigIni($this->invalidSchema, false);
+        $isFormatOk = $parser->checkFormat();
         $this->assertFalse($isFormatOk);
     }
 }

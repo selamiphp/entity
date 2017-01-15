@@ -40,9 +40,9 @@ class MyJsonParserClass extends  \PHPUnit_Framework_TestCase
      */
     public function shouldReturnArrayCorrectly()
     {
-        $serializer = new Json(dirname(__DIR__) . '/resources/config_data/config.json', true);
-        $this->assertInstanceOf(ParserInterface::class, $serializer);
-        $schema  = $serializer->parse();
+        $parser = new Json(dirname(__DIR__) . '/resources/config_data/config.json', true);
+        $this->assertInstanceOf(ParserInterface::class, $parser);
+        $schema  = $parser->parse();
         $this->assertArrayHasKey('schema', $schema );
         $this->assertArrayHasKey('id', $schema ['schema']);
         $this->assertArrayHasKey('age', $schema ['schema']);
@@ -60,8 +60,8 @@ class MyJsonParserClass extends  \PHPUnit_Framework_TestCase
      */
     public function shouldThrowUnexpectedValueExceptionForInvalidJson()
     {
-        $serializer = new Json($this->invalidSchema, false);
-        $serializer->parse();
+        $parser = new Json($this->invalidSchema, false);
+        $parser->parse();
     }
 
     /**
@@ -79,8 +79,8 @@ class MyJsonParserClass extends  \PHPUnit_Framework_TestCase
      */
     public function shouldReturnTrueForCheckFormatMethod()
     {
-        $serializer = new Json($this->validSchema, false);
-        $isFormatOk = $serializer->checkFormat();
+        $parser = new Json($this->validSchema, false);
+        $isFormatOk = $parser->checkFormat();
         $this->assertTrue($isFormatOk);
     }
     /**
@@ -88,8 +88,8 @@ class MyJsonParserClass extends  \PHPUnit_Framework_TestCase
      */
     public function shouldReturnFalseForCheckFormatMethod()
     {
-        $serializer = new Json($this->invalidSchema, false);
-        $isFormatOk = $serializer->checkFormat();
+        $parser = new Json($this->invalidSchema, false);
+        $isFormatOk = $parser->checkFormat();
         $this->assertFalse($isFormatOk);
     }
 }

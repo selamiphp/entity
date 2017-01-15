@@ -35,18 +35,21 @@ class PhpArray implements ParserInterface
      */
     public function parse()
     {
-        try{
+        //$errorReportingValue = ini_get('error_reporting');
+        //error_reporting(-1);
+        try {
             $schema = require $this->schemaConfig;
-        } catch (\AssertionError $e) {
+        } catch (\Exception $e) {
             throw new UnexpectedValueException($e->getMessage());
-
         } catch (\Error $e) {
             throw new UnexpectedValueException($e->getMessage());
+        }
+        finally {
+           // error_reporting($errorReportingValue);
         }
         if (!is_array($schema)) {
             throw new UnexpectedValueException('Config file does not return an array.');
         }
-
         return $schema;
     }
 
@@ -56,14 +59,15 @@ class PhpArray implements ParserInterface
     public function checkFormat()
     {
         try {
-            require $this->schemaConfig;
+            $schema = require $this->schemaConfig;
+            if (!is_array($schema)) {
+                return false;
+            }
             return true;
-        } catch (\ParseError $e) {
-        } catch (\TypeError $e) {
-        } catch (\DivisionByZeroError $e) {
-        } catch (\ArithmeticError $e) {
-        } catch (\AssertionError $e) {
+        } catch (\Exception $e) {
+            // will return false
         } catch (\Error $e) {
+            // will return false
         }
         return false;
 

@@ -35,9 +35,9 @@ class MyPhpArrayParserClass extends  \PHPUnit_Framework_TestCase
      */
     public function shouldReturnArrayCorrectly()
     {
-        $serializer = new PhpArray($this->validSchema);
-        $this->assertInstanceOf(ParserInterface::class, $serializer);
-        $schema = $serializer->parse();
+        $parser = new PhpArray($this->validSchema);
+        $this->assertInstanceOf(ParserInterface::class, $parser);
+        $schema = $parser->parse();
         $this->assertArrayHasKey('schema', $schema );
         $this->assertArrayHasKey('id', $schema ['schema']);
         $this->assertArrayHasKey('age', $schema ['schema']);
@@ -52,25 +52,64 @@ class MyPhpArrayParserClass extends  \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException UnexpectedValueException
-     * @expectedException UnexpectedValueException
-     * @expectedException UnexpectedValueException
-     * @expectedException UnexpectedValueException
-     * @expectedException UnexpectedValueException
      */
     public function shouldThrowUnexpectedValueExceptionForInvalidArray()
     {
-        $serializer = new PhpArray($this->invalidSchema[0]);
-        $serializer->parse();
-        $serializer = new PhpArray($this->invalidSchema[1]);
-        $serializer->parse();
-        $serializer = new PhpArray($this->invalidSchema[2]);
-        $serializer->parse();
-        $serializer = new PhpArray($this->invalidSchema[3]);
-        $serializer->parse();
-        $serializer = new PhpArray($this->invalidSchema[4]);
-        $serializer->parse();
-        $serializer = new PhpArray($this->invalidSchema[5]);
-        $serializer->parse();
+        $parser = new PhpArray($this->invalidSchema[0]);
+        $parser->parse();
+    }
+
+    /**
+     * @test
+     * @expectedException UnexpectedValueException
+     */
+    public function shouldThrowUnexpectedValueExceptionForPhpParseError()
+    {
+        $parser = new PhpArray($this->invalidSchema[1]);
+        $parser->parse();
+    }
+
+    /**
+     * @test
+     * @expectedException UnexpectedValueException
+     */
+    public function shouldThrowUnexpectedValueExceptionForPhpTypeError()
+    {
+
+        $parser = new PhpArray($this->invalidSchema[2]);
+        $parser->parse();
+    }
+
+    /**
+     * @test
+     * @expectedException UnexpectedValueException
+     */
+    public function shouldThrowUnexpectedValueExceptionForPhpDivisionByZeroError()
+    {
+        $parser = new PhpArray($this->invalidSchema[3]);
+        $parser->parse();
+    }
+
+    /**
+     * @test
+     * @expectedException UnexpectedValueException
+     */
+    public function shouldThrowUnexpectedValueExceptionForPhpArithmeticError()
+    {
+
+        $parser = new PhpArray($this->invalidSchema[4]);
+        $parser->parse();
+    }
+
+    /**
+     * @test
+     * @expectedException UnexpectedValueException
+     */
+    public function shouldThrowUnexpectedValueExceptionForPhpAssertionError()
+    {
+
+        $parser = new PhpArray($this->invalidSchema[5]);
+        $parser->parse();
     }
 
     /**
@@ -80,8 +119,8 @@ class MyPhpArrayParserClass extends  \PHPUnit_Framework_TestCase
      */
     public function shouldThrowUnexpectedValueExceptionForInvalidReturnArray()
     {
-        $serializer = new PhpArray($this->invalidSchema[6]);
-        $serializer->parse();
+        $parser = new PhpArray($this->invalidSchema[6]);
+        $parser->parse();
     }
 
     /**
@@ -99,17 +138,79 @@ class MyPhpArrayParserClass extends  \PHPUnit_Framework_TestCase
      */
     public function shouldReturnTrueForCheckFormatMethod()
     {
-        $serializer = new PhpArray($this->validSchema);
-        $isFormatOk = $serializer->checkFormat();
+        $parser = new PhpArray($this->validSchema);
+        $isFormatOk = $parser->checkFormat();
         $this->assertTrue($isFormatOk);
     }
+
     /**
      * @test
      */
-    public function shouldReturnFalseForCheckFormatMethod()
+    public function shouldReturnFalseForCheckFormatMethodForInvalidArray()
     {
-        $serializer = new PhpArray($this->invalidSchema[0]);
-        $isFormatOk = $serializer->checkFormat();
+        $parser = new PhpArray($this->invalidSchema[0]);
+        $isFormatOk = $parser->checkFormat();
+        $this->assertFalse($isFormatOk);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnFalseForCheckFormatMethodForPhpParseError()
+    {
+        $parser = new PhpArray($this->invalidSchema[1]);
+        $isFormatOk = $parser->checkFormat();
+        $this->assertFalse($isFormatOk);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnFalseForCheckFormatMethodForPhpTypeError()
+    {
+        $parser = new PhpArray($this->invalidSchema[2]);
+        $isFormatOk = $parser->checkFormat();
+        $this->assertFalse($isFormatOk);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnFalseForCheckFormatMethodForPhpDivisionByZeroError()
+    {
+        $parser = new PhpArray($this->invalidSchema[3]);
+        $isFormatOk = $parser->checkFormat();
+        $this->assertFalse($isFormatOk);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnFalseForCheckFormatMethodForPhpArithmeticError()
+    {
+        $parser = new PhpArray($this->invalidSchema[4]);
+        $isFormatOk = $parser->checkFormat();
+        $this->assertFalse($isFormatOk);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnFalseForCheckFormatMethodforPhpAssertionError()
+    {
+        $parser = new PhpArray($this->invalidSchema[5]);
+        $isFormatOk = $parser->checkFormat();
+        $this->assertFalse($isFormatOk);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnFalseForCheckFormatMethodForInvalidReturnArray()
+    {
+        $parser = new PhpArray($this->invalidSchema[6]);
+        $isFormatOk = $parser->checkFormat();
+        var_dump($isFormatOk);
         $this->assertFalse($isFormatOk);
     }
 }
