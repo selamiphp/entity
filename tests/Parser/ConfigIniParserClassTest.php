@@ -7,9 +7,9 @@ use Selami\Entity\Parser\ConfigIni;
 use Selami\Entity\Interfaces\ParserInterface;
 use InvalidArgumentException;
 
-class MyConfigIniParserClass extends  \PHPUnit_Framework_TestCase
+class MyConfigIniParserClass extends \PHPUnit_Framework_TestCase
 {
-    protected  $validSchema = '
+    protected $validSchema = '
 
 [id]
     type = int
@@ -30,7 +30,7 @@ class MyConfigIniParserClass extends  \PHPUnit_Framework_TestCase
     options[] = 1
 ';
 
-    protected  $invalidSchema = '
+    protected $invalidSchema = '
 [id]
 type = int
 length = 3
@@ -60,7 +60,7 @@ options[] = 1
         $parser->getConfigFromFile(dirname(__DIR__) . '/resources/config_data/config.ini');
         $this->assertInstanceOf(ParserInterface::class, $parser);
         $schema  = $parser->parse();
-        $this->assertArrayHasKey('schema', $schema );
+        $this->assertArrayHasKey('schema', $schema);
         $this->assertArrayHasKey('id', $schema ['schema']);
         $this->assertArrayHasKey('age', $schema ['schema']);
         $this->assertArrayHasKey('is_active', $schema ['schema']);

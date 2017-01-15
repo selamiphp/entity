@@ -7,13 +7,13 @@ use Selami\Entity\Parser\PhpArray;
 use Selami\Entity\Interfaces\ParserInterface;
 use InvalidArgumentException;
 
-class MyPhpArrayParserClass extends  \PHPUnit_Framework_TestCase
+class MyPhpArrayParserClass extends \PHPUnit_Framework_TestCase
 {
-    protected  $validSchema;
+    protected $validSchema;
 
-    protected  $invalidSchema ;
+    protected $invalidSchema ;
 
-    protected  $imaginaryFile = '/tmp/imaginary_config_file.php';
+    protected $imaginaryFile = '/tmp/imaginary_config_file.php';
 
 
     public function setup()
@@ -38,7 +38,7 @@ class MyPhpArrayParserClass extends  \PHPUnit_Framework_TestCase
         $parser = new PhpArray($this->validSchema);
         $this->assertInstanceOf(ParserInterface::class, $parser);
         $schema = $parser->parse();
-        $this->assertArrayHasKey('schema', $schema );
+        $this->assertArrayHasKey('schema', $schema);
         $this->assertArrayHasKey('id', $schema ['schema']);
         $this->assertArrayHasKey('age', $schema ['schema']);
         $this->assertArrayHasKey('is_active', $schema ['schema']);

@@ -7,9 +7,9 @@ use Selami\Entity\Interfaces\ParserInterface;
 use Selami\Entity\Parser\Json;
 use InvalidArgumentException;
 
-class MyJsonParserClass extends  \PHPUnit_Framework_TestCase
+class MyJsonParserClass extends \PHPUnit_Framework_TestCase
 {
-    protected  $validSchema = '
+    protected $validSchema = '
         {
   "schema": {
     "id": {
@@ -31,7 +31,7 @@ class MyJsonParserClass extends  \PHPUnit_Framework_TestCase
 }
     ';
 
-    protected  $invalidSchema = '
+    protected $invalidSchema = '
         {"schema": {[{ "type": "int", "length": 3, "min": 0, "max": 999 } } ]  }
     ';
 
@@ -44,7 +44,7 @@ class MyJsonParserClass extends  \PHPUnit_Framework_TestCase
         $parser->getConfigFromFile(dirname(__DIR__) . '/resources/config_data/config.json');
         $this->assertInstanceOf(ParserInterface::class, $parser);
         $schema  = $parser->parse();
-        $this->assertArrayHasKey('schema', $schema );
+        $this->assertArrayHasKey('schema', $schema);
         $this->assertArrayHasKey('id', $schema ['schema']);
         $this->assertArrayHasKey('age', $schema ['schema']);
         $this->assertArrayHasKey('is_active', $schema ['schema']);

@@ -22,7 +22,7 @@ class Json implements ParserInterface
      * @param  string $schemaConfig
      * @throws InvalidArgumentException
      */
-    public function __construct(string $schemaConfig=null)
+    public function __construct(string $schemaConfig = null)
     {
         if ($schemaConfig !== null) {
             $this->setConfig($schemaConfig);
