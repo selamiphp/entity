@@ -6,16 +6,13 @@ checks:
     duplication: true
 build:
   environment:
-    php: '5.6'
-  dependencies:
-    before:
-      - mysql -e "CREATE DATABASE test"
+    php: '7.0.8'
   tests:
     override:
       -
-        command: 'phpunit --coverage-clover=.soupmix_coverage'
+        command: 'phpunit --coverage-clover=.selami_coverage'
         coverage:
-          file: '.soupmix_coverage'
+          file: '.selami_coverage'
           format: 'clover'
 filter:
   excluded_paths:
