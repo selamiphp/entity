@@ -5,7 +5,7 @@ namespace tests;
 
 use Selami\Entity\Parser\PhpArray;
 use Selami\Entity\Interfaces\ParserInterface;
-use UnexpectedValueException;
+use InvalidArgumentException;
 
 class MyPhpArrayParserClass extends  \PHPUnit_Framework_TestCase
 {
@@ -51,9 +51,9 @@ class MyPhpArrayParserClass extends  \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException UnexpectedValueException
+     * @expectedException InvalidArgumentException
      */
-    public function shouldThrowUnexpectedValueExceptionForInvalidArray()
+    public function shouldThrowInvalidArgumentExceptionForInvalidArray()
     {
         $parser = new PhpArray($this->invalidSchema[0]);
         $parser->parse();
@@ -61,9 +61,9 @@ class MyPhpArrayParserClass extends  \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException UnexpectedValueException
+     * @expectedException InvalidArgumentException
      */
-    public function shouldThrowUnexpectedValueExceptionForPhpParseError()
+    public function shouldThrowInvalidArgumentExceptionForPhpParseError()
     {
         $parser = new PhpArray($this->invalidSchema[1]);
         $parser->parse();
@@ -71,9 +71,9 @@ class MyPhpArrayParserClass extends  \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException UnexpectedValueException
+     * @expectedException InvalidArgumentException
      */
-    public function shouldThrowUnexpectedValueExceptionForPhpTypeError()
+    public function shouldThrowInvalidArgumentExceptionForPhpTypeError()
     {
 
         $parser = new PhpArray($this->invalidSchema[2]);
@@ -82,9 +82,9 @@ class MyPhpArrayParserClass extends  \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException UnexpectedValueException
+     * @expectedException InvalidArgumentException
      */
-    public function shouldThrowUnexpectedValueExceptionForPhpDivisionByZeroError()
+    public function shouldThrowInvalidArgumentExceptionForPhpDivisionByZeroError()
     {
         $parser = new PhpArray($this->invalidSchema[3]);
         $parser->parse();
@@ -92,9 +92,9 @@ class MyPhpArrayParserClass extends  \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException UnexpectedValueException
+     * @expectedException InvalidArgumentException
      */
-    public function shouldThrowUnexpectedValueExceptionForPhpArithmeticError()
+    public function shouldThrowInvalidArgumentExceptionForPhpArithmeticError()
     {
 
         $parser = new PhpArray($this->invalidSchema[4]);
@@ -103,9 +103,9 @@ class MyPhpArrayParserClass extends  \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException UnexpectedValueException
+     * @expectedException InvalidArgumentException
      */
-    public function shouldThrowUnexpectedValueExceptionForPhpAssertionError()
+    public function shouldThrowInvalidArgumentExceptionForPhpAssertionError()
     {
 
         $parser = new PhpArray($this->invalidSchema[5]);
@@ -114,10 +114,10 @@ class MyPhpArrayParserClass extends  \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException UnexpectedValueException
+     * @expectedException InvalidArgumentException
      *
      */
-    public function shouldThrowUnexpectedValueExceptionForInvalidReturnArray()
+    public function shouldThrowInvalidArgumentExceptionForInvalidReturnArray()
     {
         $parser = new PhpArray($this->invalidSchema[6]);
         $parser->parse();

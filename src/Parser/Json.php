@@ -5,8 +5,7 @@ namespace Selami\Entity\Parser;
 
 use Selami\Entity\Interfaces\ParserInterface;
 use Seld\JsonLint\JsonParser;
-use UnexpectedValueException;
-use Selami\Entity\Exception\FileNotFoundException;
+use InvalidArgumentException;
 
 /**
  * Json Parser
@@ -15,22 +14,19 @@ use Selami\Entity\Exception\FileNotFoundException;
  */
 class Json implements ParserInterface
 {
-    protected $schemaConfig;
+    use ParserTrait;
 
     /**
      * Json constructor.
      *
      * @param  string $schemaConfig
-     * @param  bool   $isFile
-     * @throws FileNotFoundException
+     * @throws InvalidArgumentException
      */
-    public function __construct(string $schemaConfig, bool $isFile = false)
+    public function __construct(string $schemaConfig=null)
     {
-        if ($isFile && !file_exists($schemaConfig)) {
-            $message = sprintf('File: %s not found. please provide full path for file names', $schemaConfig);
-            throw new FileNotFoundException($message);
+        if ($schemaConfig !== null) {
+            $this->setConfig($schemaConfig);
         }
-        $this->schemaConfig = $isFile ? file_get_contents($schemaConfig) : $schemaConfig;
     }
 
     /**
@@ -38,11 +34,12 @@ class Json implements ParserInterface
      */
     public function parse()
     {
+        $this->isConfigEmpty($this->schemaConfig);
         $schema = json_decode($this->schemaConfig, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
             $parser = new JsonParser();
             $linting = $parser->lint($this->schemaConfig);
-            throw new UnexpectedValueException($linting->getMessage());
+            throw new InvalidArgumentException($linting->getMessage());
         }
         return $schema;
     }

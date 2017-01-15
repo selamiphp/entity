@@ -5,7 +5,7 @@ namespace tests;
 
 use Selami\Entity\Parser\ConfigIni;
 use Selami\Entity\Interfaces\ParserInterface;
-use UnexpectedValueException;
+use InvalidArgumentException;
 
 class MyConfigIniParserClass extends  \PHPUnit_Framework_TestCase
 {
@@ -56,7 +56,8 @@ options[] = 1
      */
     public function shouldReturnArrayCorrectly()
     {
-        $parser = new ConfigIni(dirname(__DIR__) . '/resources/config_data/config.ini', true);
+        $parser = new ConfigIni();
+        $parser->getConfigFromFile(dirname(__DIR__) . '/resources/config_data/config.ini');
         $this->assertInstanceOf(ParserInterface::class, $parser);
         $schema  = $parser->parse();
         $this->assertArrayHasKey('schema', $schema );
@@ -72,11 +73,11 @@ options[] = 1
 
     /**
      * @test
-     * @expectedException UnexpectedValueException
+     * @expectedException InvalidArgumentException
      */
-    public function shouldThrowUnexpectedValueExceptionForInvalidConfigIni()
+    public function shouldThrowInvalidArgumentExceptionForInvalidConfigIni()
     {
-        $parser = new ConfigIni($this->invalidSchema, false);
+        $parser = new ConfigIni($this->invalidSchema);
         $parser->parse();
     }
 
@@ -86,7 +87,8 @@ options[] = 1
      */
     public function shouldThrowFileNotFoundExceptionForInvalidConfigIni()
     {
-        new ConfigIni($this->validSchema, true);
+        $parser = new ConfigIni();
+        $parser->getConfigFromFile('/tmp/not_existed_config_file');
     }
 
 
@@ -95,7 +97,7 @@ options[] = 1
      */
     public function shouldReturnTrueForCheckFormatMethod()
     {
-        $parser = new ConfigIni($this->validSchema, false);
+        $parser = new ConfigIni($this->validSchema);
         $isFormatOk = $parser->checkFormat();
         $this->assertTrue($isFormatOk);
     }
@@ -104,7 +106,7 @@ options[] = 1
      */
     public function shouldReturnFalseForCheckFormatMethod()
     {
-        $parser = new ConfigIni($this->invalidSchema, false);
+        $parser = new ConfigIni($this->invalidSchema);
         $isFormatOk = $parser->checkFormat();
         $this->assertFalse($isFormatOk);
     }

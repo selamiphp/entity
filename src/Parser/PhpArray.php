@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Selami\Entity\Parser;
 
 use Selami\Entity\Interfaces\ParserInterface;
-use UnexpectedValueException;
+use InvalidArgumentException;
 use Selami\Entity\Exception\FileNotFoundException;
 
 /**
@@ -14,24 +14,21 @@ use Selami\Entity\Exception\FileNotFoundException;
  */
 class PhpArray implements ParserInterface
 {
-    protected $schemaConfig;
+    use ParserTrait;
+
+    protected $configFile;
 
     /**
-     * Config constructor.
-     *
-     * @param  string $schemaConfig
+     * PhpArray constructor.
+     * @param string $configFileName
      * @throws FileNotFoundException
      */
-    public function __construct(string $schemaConfig)
+    public function __construct(string $configFileName)
     {
-        if (!file_exists($schemaConfig)) {
-            $message = sprintf(
-                'File: %s not found. please provide full path for file names',
-                $schemaConfig
-            );
-            throw new FileNotFoundException($message);
+        if (!file_exists($configFileName)) {
+            throw new FileNotFoundException('File %s couldn\t be found.');
         }
-        $this->schemaConfig =  $schemaConfig;
+        $this->configFile = $configFileName;
     }
 
     /**
@@ -40,14 +37,14 @@ class PhpArray implements ParserInterface
     public function parse()
     {
         try {
-            $schema = include $this->schemaConfig;
+            $schema = include $this->configFile;
         } catch (\Exception $e) {
-            throw new UnexpectedValueException($e->getMessage());
+            throw new InvalidArgumentException($e->getMessage());
         } catch (\Error $e) {
-            throw new UnexpectedValueException($e->getMessage());
+            throw new InvalidArgumentException($e->getMessage());
         }
         if (!is_array($schema)) {
-            throw new UnexpectedValueException('Config file does not return an array.');
+            throw new InvalidArgumentException('Config file does not return an array.');
         }
         return $schema;
     }
@@ -58,7 +55,7 @@ class PhpArray implements ParserInterface
     public function checkFormat()
     {
         try {
-            $schema = include $this->schemaConfig;
+            $schema = include $this->configFile;
             if (!is_array($schema)) {
                 return false;
             }

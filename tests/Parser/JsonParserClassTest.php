@@ -5,7 +5,7 @@ namespace tests;
 
 use Selami\Entity\Interfaces\ParserInterface;
 use Selami\Entity\Parser\Json;
-use UnexpectedValueException;
+use InvalidArgumentException;
 
 class MyJsonParserClass extends  \PHPUnit_Framework_TestCase
 {
@@ -40,7 +40,8 @@ class MyJsonParserClass extends  \PHPUnit_Framework_TestCase
      */
     public function shouldReturnArrayCorrectly()
     {
-        $parser = new Json(dirname(__DIR__) . '/resources/config_data/config.json', true);
+        $parser = new Json();
+        $parser->getConfigFromFile(dirname(__DIR__) . '/resources/config_data/config.json');
         $this->assertInstanceOf(ParserInterface::class, $parser);
         $schema  = $parser->parse();
         $this->assertArrayHasKey('schema', $schema );
@@ -56,11 +57,11 @@ class MyJsonParserClass extends  \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException UnexpectedValueException
+     * @expectedException InvalidArgumentException
      */
-    public function shouldThrowUnexpectedValueExceptionForInvalidJson()
+    public function shouldThrowInvalidArgumentExceptionForInvalidJson()
     {
-        $parser = new Json($this->invalidSchema, false);
+        $parser = new Json($this->invalidSchema);
         $parser->parse();
     }
 
@@ -70,7 +71,8 @@ class MyJsonParserClass extends  \PHPUnit_Framework_TestCase
      */
     public function shouldThrowFileNotFoundExceptionForInvalidJson()
     {
-        new Json($this->validSchema, true);
+        $parser = new Json();
+        $parser->getConfigFromFile('/tmp/not_existed_config_file');
     }
 
 
@@ -79,7 +81,7 @@ class MyJsonParserClass extends  \PHPUnit_Framework_TestCase
      */
     public function shouldReturnTrueForCheckFormatMethod()
     {
-        $parser = new Json($this->validSchema, false);
+        $parser = new Json($this->validSchema);
         $isFormatOk = $parser->checkFormat();
         $this->assertTrue($isFormatOk);
     }
