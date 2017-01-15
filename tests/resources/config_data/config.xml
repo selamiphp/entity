@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<schema>
+    <id>
+        <type>int</type>
+        <length>3</length>
+        <min>0</min>
+        <max>999</max>
+    </id>
+    <age>
+        <type>int</type>
+        <length>3</length>
+    </age>
+    <is_active>
+        <type>enum</type>
+        <options>
+            <value>0</value>
+            <value>1</value>
+        </options>
+    </is_active>
+</schema>

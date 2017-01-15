@@ -1,0 +1,33 @@
+{
+    "name": "selami/entity",
+    "description": "A library to validate variable types, to fix, to sanitize and to set default values for a model definition.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mehmet Korkmaz",
+            "email": "mehmet@mkorkmaz.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "~7.0||~7.1",
+        "beberlei/assert": "~2.7.0",
+        "crisu83/shortid": "~1.0",
+        "ezyang/htmlpurifier": "~4.8",
+        "seld/jsonlint": "^1.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7.5",
+        "phpunit/phpcov": "^3.1",
+        "satooshi/php-coveralls": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Selami\\Entity\\": "src/"
+        },
+        "files":[
+          "src/functions.php"
+        ]
+    }
+}
