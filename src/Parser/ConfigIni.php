@@ -19,16 +19,16 @@ class ConfigIni implements ParserInterface
     /**
      * Config constructor.
      * @param string $schemaConfig
-     * @param bool $is_file
+     * @param bool $isFile
      * @throws FileNotFoundException
      */
-    public function __construct(string $schemaConfig, bool $is_file = false)
+    public function __construct(string $schemaConfig, bool $isFile = false)
     {
-        if ($is_file && !file_exists($schemaConfig)) {
+        if ($isFile && !file_exists($schemaConfig)) {
             $message = sprintf('File: %s not found. please provide full path for file names', $schemaConfig);
             throw new FileNotFoundException($message);
         }
-        $this->schemaConfig = $is_file ? file_get_contents($schemaConfig) : $schemaConfig;
+        $this->schemaConfig = $isFile ? file_get_contents($schemaConfig) : $schemaConfig;
     }
 
     /**
