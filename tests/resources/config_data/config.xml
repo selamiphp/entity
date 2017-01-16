@@ -9,12 +9,25 @@
     <age>
         <type>int</type>
         <length>3</length>
+        <min>0</min>
+        <max>120</max>
     </age>
     <is_active>
         <type>enum</type>
+        <length>1</length>
         <options>
             <value>0</value>
             <value>1</value>
         </options>
     </is_active>
+    <legacy>
+        <user>
+            <id>
+                <type>int</type>
+                <length>3</length>
+                <min>0</min>
+                <max>999</max>
+            </id>
+        </user>
+    </legacy>
 </schema>
