@@ -23,7 +23,7 @@ class MyConfigIniParserClass extends \PHPUnit_Framework_TestCase
     min = 0
     max = 122
 
-[age]
+[is_active]
     type = enum
     length = 1
     options[] = 0
