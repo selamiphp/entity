@@ -6,11 +6,17 @@ php:
   - 7.1
   - 7.0
 
+
 before_script:
-  - pecl install yaml
+  - pecl channel-update pecl.php.net
+  - pecl install yaml-2.0.0 < /dev/null
   - echo "extension = yaml.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer install -n
 
+addons:
+  apt:
+    packages:
+      - libyaml-dev
 script:
   - phpunit --coverage-clover build/logs/clover.xml
 

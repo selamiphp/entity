@@ -53,7 +53,7 @@ class Yaml implements ParserInterface
     public function checkFormat()
     {
         try {
-            $res = SymfonyYaml\Yaml::parse($this->schemaConfig);
+            SymfonyYaml\Yaml::parse($this->schemaConfig);
             return true;
         } catch (SymfonyParseException $e) {
             return false;
