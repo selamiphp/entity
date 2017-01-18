@@ -33,5 +33,10 @@
         "files":[
           "src/functions.php"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Selami\\Test\\Abstracts\\": "tests/extend/"
+        }
     }
 }
