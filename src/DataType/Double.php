@@ -17,7 +17,7 @@ class Double extends DataTypeAbstract implements DataTypeInterface
     ];
 
     /**
-     * Boolean constructor.
+     * Double constructor.
      * @param string $key
      * @param mixed $datum
      * @param array $options

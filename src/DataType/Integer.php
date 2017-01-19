@@ -18,7 +18,7 @@ class Integer extends DataTypeAbstract implements DataTypeInterface
 
 
     /**
-     * Boolean constructor.
+     * Integer constructor.
      * @param string $key
      * @param mixed $datum
      * @param array $options

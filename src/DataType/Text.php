@@ -27,7 +27,7 @@ class Text extends DataTypeAbstract implements DataTypeInterface
     ];
 
     /**
-     * Boolean constructor.
+     * Text constructor.
      * @param string $key
      * @param mixed $datum
      * @param array $options
