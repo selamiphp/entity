@@ -38,10 +38,10 @@ class Date extends DataTypeAbstract implements DataTypeInterface
     /**
      * Date constructor.
      * @param string $key
-     * @param string $datum
+     * @param mixed $datum
      * @param array $options
      */
-    public function __construct(string $key, string $datum, array $options = [])
+    public function __construct(string $key, $datum, array $options = [])
     {
         $this->key = $key;
         $this->datum = $datum;
@@ -114,7 +114,6 @@ class Date extends DataTypeAbstract implements DataTypeInterface
         } catch (InvalidArgumentException $e) {
             $date = new DateTime($this->options['default']);
         }
-
         return $date->format($this->options['format']);
     }
 }
