@@ -1,6 +1,6 @@
 {
     "name": "selami/entity",
-    "description": "A library to validate variable types, to fix, to sanitize and to set default values for a model definition.",
+    "description": "A library to assert variable types, to normalize and to set default values for a model definition.",
     "type": "library",
     "license": "MIT",
     "authors": [
