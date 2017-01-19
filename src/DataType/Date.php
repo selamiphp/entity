@@ -43,6 +43,7 @@ class Date extends DataTypeAbstract implements DataTypeInterface
     {
         $this->key = $key;
         $this->datum = $datum;
+        $this->checkValidOptions($options);
         $this->options = array_merge(self::$defaults, $options);
     }
     /**
@@ -78,19 +79,19 @@ class Date extends DataTypeAbstract implements DataTypeInterface
 
     private function checkMin()
     {
-        if ($this->options['min'] === null && $this->datum > $this->options['min']) {
+        if (($this->options['min'] === null) || $this->datum >= $this->options['min']) {
             return true;
         }
-        $this->errorMessageTemplate = self::DATA_MIN_ERROR . $this->options['min'];
+        $this->errorMessageTemplate = self::DATA_MIN_ERROR . ' ' . $this->options['min'];
         $this->throwException();
     }
 
     private function checkMax()
     {
-        if ($this->options['max'] === null && ($this->datum > $this->options['max'])) {
+        if (($this->options['max'] === null) || ($this->datum <= $this->options['max'])) {
             return true;
         }
-        $this->errorMessageTemplate = self::DATA_MIN_ERROR . $this->options['max'];
+        $this->errorMessageTemplate = self::DATA_MAX_ERROR . ' ' . $this->options['max'];
         $this->throwException();
     }
 
