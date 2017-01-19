@@ -7,6 +7,7 @@ use InvalidArgumentException;
 
 abstract class DataTypeAbstract
 {
+    const INVALID_OPTIONS = 'Option: %s is invalid. You should remove it or check for typo.';
     /**
      * @var string
      */
@@ -21,6 +22,16 @@ abstract class DataTypeAbstract
     protected $options = [];
 
     protected $errorMessageTemplate;
+
+    protected function checkValidOptions(array $options)
+    {
+        $validOptions = array_keys($this::$defaults);
+        foreach ($options as $optionKey => $optionValue) {
+            if (!in_array($optionKey, $validOptions, true)) {
+                throw new InvalidArgumentException(sprintf(self::INVALID_OPTIONS, $optionKey));
+            }
+        }
+    }
 
     protected function throwException()
     {
