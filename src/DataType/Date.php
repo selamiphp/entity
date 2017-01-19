@@ -38,6 +38,7 @@ class Date extends DataTypeAbstract implements DataTypeInterface
      * @param string $key
      * @param mixed $datum
      * @param array $options
+     * @throws InvalidArgumentException
      */
     public function __construct(string $key, $datum, array $options = [])
     {
