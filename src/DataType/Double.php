@@ -44,9 +44,9 @@ class Double extends DataTypeAbstract implements DataTypeInterface
     {
         try {
             $this->assert();
-            return $this->datum;
+            return (float) $this->datum;
         } catch (InvalidArgumentException $e) {
-            return $this->options['default'];
+            return (float) $this->options['default'];
         }
     }
 }

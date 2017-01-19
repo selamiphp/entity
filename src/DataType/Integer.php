@@ -45,9 +45,9 @@ class Integer extends DataTypeAbstract implements DataTypeInterface
     {
         try {
             $this->assert();
-            return $this->datum;
+            return (int) filter_var($this->datum, FILTER_SANITIZE_NUMBER_INT);
         } catch (InvalidArgumentException $e) {
-            return $this->options['default'];
+            return (int) filter_var($this->options['default'], FILTER_SANITIZE_NUMBER_INT);
         }
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Selami\Entity\DataType;
 
 use InvalidArgumentException;
+use Selami\Entity\getType;
 
 abstract class DataTypeAbstract
 {
@@ -35,6 +36,9 @@ abstract class DataTypeAbstract
 
     protected function throwException()
     {
+        if (getType($this->datum) === 'array') {
+            $this->datum = '{NoOtConvertibleToStringValue}';
+        }
         $message = sprintf(
             $this->errorMessageTemplate,
             $this->datum,

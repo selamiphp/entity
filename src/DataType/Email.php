@@ -48,9 +48,9 @@ class Email extends DataTypeAbstract implements DataTypeInterface
     {
         try {
             $this->assert();
-            return $this->datum;
+            return filter_var($this->datum, FILTER_SANITIZE_EMAIL);
         } catch (InvalidArgumentException $e) {
-            return $this->options['default'];
+            return filter_var($this->options['default'], FILTER_SANITIZE_EMAIL);
         }
     }
 }

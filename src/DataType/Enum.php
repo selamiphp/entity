@@ -43,12 +43,8 @@ class Enum extends DataTypeAbstract implements DataTypeInterface
      */
     public function assert()
     {
-        try {
-            if (!in_array($this->datum, $this->options['values'], true)) {
-                $this->errorMessageTemplate = self::DATA_TYPE_ERROR;
-                $this->throwException();
-            }
-        } catch (\TypeError $e) {
+
+        if (!in_array($this->datum, $this->options['values'], true)) {
             $this->errorMessageTemplate = self::DATA_TYPE_ERROR;
             $this->throwException();
         }
@@ -61,9 +57,9 @@ class Enum extends DataTypeAbstract implements DataTypeInterface
     {
         try {
             $this->assert();
-            return $this->datum;
+            return filter_var($this->datum, FILTER_UNSAFE_RAW);
         } catch (InvalidArgumentException $e) {
-            return $this->options['default'];
+            return filter_var($this->options['default'], FILTER_UNSAFE_RAW);
         }
     }
 }

@@ -89,13 +89,21 @@ class Text extends DataTypeAbstract implements DataTypeInterface
         }
         if ($this->options['max'] !== null) {
             $length = (int) $this->options['max'];
-            return mb_substr($this->datum, 0, $length);
+            return filter_var(
+                mb_substr($this->datum, 0, $length),
+                FILTER_SANITIZE_STRING,
+                FILTER_FLAG_NO_ENCODE_QUOTES
+            );
         }
         if (strlen($this->datum) < (int) $this->options['min']) {
             $padType = self::$padOptions[$this->options['pad']] ?: STR_PAD_RIGHT;
             $padding = $this->options[$this->options['pad'].'_pad'];
-            return str_pad($this->datum, (int) $this->options['min'], $padding, $padType);
+            return filter_var(
+                str_pad($this->datum, (int) $this->options['min'], $padding, $padType),
+                FILTER_SANITIZE_STRING,
+                FILTER_FLAG_NO_ENCODE_QUOTES
+            );
         }
-        return $this->datum;
+        return filter_var($this->datum, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     }
 }

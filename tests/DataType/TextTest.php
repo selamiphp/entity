@@ -38,6 +38,7 @@ class MyTextClass extends DataType
     {
         return [
             ['Selami Entity', 'Selami Entity'],
+            ['Selami<Entity>', 'Selami'],
             ['Selami Entity', 'Selami Entity', ['max' => 200]],
             [
                 null,
@@ -49,7 +50,8 @@ class MyTextClass extends DataType
                 'Selami    ',
                 ['min' => 10, 'default' => 'PHP is a popular general-purpose scripting language', 'pad' => 'right']
             ],
-            ['Selami Entity', 'Selami Ent', ['max' => 10]]
+            ['Selami Entity', 'Selami Ent', ['max' => 10]],
+            ["<script>alert('XSS');</script>", "alert('XSS');"]
         ];
     }
 }

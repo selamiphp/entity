@@ -32,6 +32,7 @@ class MyEnumClass extends DataType
             [null, ['values' => ['M','F','NaN']]],
             ['F', ['values' => ['M']]],
             ['1', ['values' => [1,2,3]]],
+            [1, ['values' => ['1','2','3']]],
         ];
     }
 
@@ -42,6 +43,7 @@ class MyEnumClass extends DataType
             ['F', 'F', ['values' => ['M','F','NaN']]],
             [1, 'NaN', ['values' => ['M','F','NaN'], 'default' => 'NaN']],
             ['1', 3, ['values' => [1,2,3], 'default' => 3]],
+            [1.1, 1.1, ['values' => [1.1,2.0,3.0], 'default' => 3.0]],
         ];
     }
 }
