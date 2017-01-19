@@ -6,7 +6,7 @@ namespace Selami\Entity\DataType;
 use Selami\Entity\Interfaces\DataTypeInterface;
 use DateTime;
 use Assert\Assertion;
-use BadMethodCallException;
+use Assert\InvalidArgumentException as BeberleiInvalidArgumentException;
 use InvalidArgumentException;
 
 class Date extends DataTypeAbstract implements DataTypeInterface
@@ -74,7 +74,7 @@ class Date extends DataTypeAbstract implements DataTypeInterface
         }
         try {
             Assertion::date($this->datum, $this->options['format']);
-        } catch (BadMethodCallException $e) {
+        } catch (BeberleiInvalidArgumentException $e) {
             $this->errorMessageTemplate = self::DATA_FORMAT_ERROR;
             $this->throwException();
         }

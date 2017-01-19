@@ -31,6 +31,7 @@ class MyDateClass extends DataType
         return [
             ['1979-13-18', ['format' => 'Y-m-d']],
             [2016, ['format' => 'Y-m-d']],
+            ['2016', ['format' => 'Y-m-d']],
             ['1979-03-18', ['format' => 'Y-m-d', 'min' => '1980-01-01']],
             ['1979-03-18', ['format' => 'Y-m-d', 'max' => '1880-01-01']],
             ['1979-03-18', ['format' => 'Y-m-d H:i:s']],
