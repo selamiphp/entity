@@ -43,7 +43,8 @@ class MyEmailClass extends DataType
     {
         return [
             ['mehmet,@mkorkmaz.com', 'mehmet@mkorkmaz.com', ['default' => 'mehmet@mkorkmaz.com']],
-            ['m@k.co;m@k.com', null, ['default' => null]]
+            ['m@k.co;m@k.com', null, ['default' => null]],
+            ['m@k.com', 'm@k.com', ['default' => null]]
         ];
     }
 }
