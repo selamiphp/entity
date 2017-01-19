@@ -78,29 +78,26 @@ class Date extends DataTypeAbstract implements DataTypeInterface
 
     private function checkMin()
     {
-        if ($this->options['min'] === null) {
+        if ($this->options['min'] === null && $this->datum > $this->options['min']) {
             return true;
         }
-        if ($this->datum < $this->options['min']) {
-            $this->errorMessageTemplate = self::DATA_MIN_ERROR . $this->options['min'];
-            $this->throwException();
-        }
+        $this->errorMessageTemplate = self::DATA_MIN_ERROR . $this->options['min'];
+        $this->throwException();
     }
 
     private function checkMax()
     {
-        if ($this->options['max'] === null) {
+        if ($this->options['max'] === null && ($this->datum > $this->options['max'])) {
             return true;
         }
-        if ($this->datum > $this->options['min']) {
-            $this->errorMessageTemplate = self::DATA_MIN_ERROR . $this->options['max'];
-            $this->throwException();
-        }
+        $this->errorMessageTemplate = self::DATA_MIN_ERROR . $this->options['max'];
+        $this->throwException();
     }
 
     /**
      * {@inheritdoc}
      */
+
     public function normalize()
     {
         try {
