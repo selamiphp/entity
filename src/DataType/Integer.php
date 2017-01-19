@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace Selami\Entity\DataType;
 
 use Selami\Entity\Interfaces\DataTypeInterface;
-use Assert\Assertion;
-use Assert\AssertionFailedException;
 use InvalidArgumentException;
 
 class Integer extends DataTypeAbstract implements DataTypeInterface
@@ -34,9 +32,7 @@ class Integer extends DataTypeAbstract implements DataTypeInterface
      */
     public function assert()
     {
-        try {
-            Assertion::integer($this->datum);
-        } catch (AssertionFailedException $e) {
+        if (!is_int($this->datum)) {
             $this->errorMessageTemplate = self::DATA_TYPE_ERROR;
             $this->throwException();
         }

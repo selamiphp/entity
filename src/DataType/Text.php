@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace Selami\Entity\DataType;
 
 use Selami\Entity\Interfaces\DataTypeInterface;
-use Assert\Assertion;
-use Assert\AssertionFailedException;
 
 class Text extends DataTypeAbstract implements DataTypeInterface
 {
@@ -52,9 +50,7 @@ class Text extends DataTypeAbstract implements DataTypeInterface
 
     private function isString()
     {
-        try {
-            Assertion::string($this->datum);
-        } catch (AssertionFailedException $e) {
+        if (!is_string($this->datum)) {
             $this->errorMessageTemplate = self::DATA_TYPE_ERROR;
             $this->throwException();
         }
@@ -66,18 +62,16 @@ class Text extends DataTypeAbstract implements DataTypeInterface
         if ($this->options['max'] !== null) {
             return $this->checkLengthBetween();
         }
-        try {
-            Assertion::minLength($this->datum, (int) $this->options['min']);
-        } catch (AssertionFailedException $e) {
+        if (mb_strlen($this->datum) < (int) $this->options['min']) {
             $this->errorMessageTemplate = self::DATA_LENGTH . 'MIN:' . $this->options['min'];
             $this->throwException();
         }
     }
+
     private function checkLengthBetween()
     {
-        try {
-            Assertion::betweenLength($this->datum, (int) $this->options['min'], (int) $this->options['max']);
-        } catch (AssertionFailedException $e) {
+        $stringLength = mb_strlen($this->datum);
+        if ($stringLength < (int) $this->options['min'] || $stringLength > (int) $this->options['max']) {
             $this->errorMessageTemplate = self::DATA_LENGTH
                 . 'MIN:' . $this->options['min']
                 . 'MAX:' . $this->options['max'];

@@ -5,8 +5,6 @@ namespace Selami\Entity\DataType;
 
 use Selami\Entity\Interfaces\DataTypeInterface;
 use DateTime;
-use Assert\Assertion;
-use Assert\InvalidArgumentException as BeberleiInvalidArgumentException;
 use InvalidArgumentException;
 
 class Date extends DataTypeAbstract implements DataTypeInterface
@@ -68,13 +66,11 @@ class Date extends DataTypeAbstract implements DataTypeInterface
 
     private function checkFormat()
     {
-
         if (in_array($this->datum, self::$validDateOptions, true)) {
             return true;
         }
-        try {
-            Assertion::date($this->datum, $this->options['format']);
-        } catch (BeberleiInvalidArgumentException $e) {
+        $dateTime = DateTime::createFromFormat($this->options['format'], $this->datum);
+        if (false === $dateTime || $this->datum !== $dateTime->format($this->options['format'])) {
             $this->errorMessageTemplate = self::DATA_FORMAT_ERROR;
             $this->throwException();
         }
