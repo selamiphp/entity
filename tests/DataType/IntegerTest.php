@@ -30,7 +30,7 @@ class MyIntegerClass extends DataType
         return [
             ['2323'],
             [0.1],
-            [(PHP_INT_MAX+1)]
+            [PHP_INT_MAX+1]
         ];
     }
 
