@@ -89,7 +89,6 @@ class Date extends DataTypeAbstract implements DataTypeInterface
             $this->errorMessageTemplate = self::DATA_MIN_ERROR . $this->options['min'];
             $this->throwException();
         }
-        return true;
     }
 
     private function checkMax()
@@ -101,8 +100,8 @@ class Date extends DataTypeAbstract implements DataTypeInterface
             $this->errorMessageTemplate = self::DATA_MIN_ERROR . $this->options['max'];
             $this->throwException();
         }
-        return true;
     }
+
     /**
      * {@inheritdoc}
      */
