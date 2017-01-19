@@ -12,7 +12,9 @@ class Double extends DataTypeAbstract implements DataTypeInterface
 {
     const DATA_TYPE_ERROR   = 'Assertion failed for value "%s" for "%s" : INVALID_TYPE';
 
-    protected static $defaults = [];
+    protected static $defaults = [
+        'default' => 0.0
+    ];
 
     /**
      * Boolean constructor.

@@ -12,7 +12,10 @@ class Boolean extends DataTypeAbstract implements DataTypeInterface
 {
     const DATA_TYPE_ERROR   = 'Assertion failed for value "%s" for "%s" : INVALID_TYPE';
 
-    protected static $defaults = [];
+    protected static $defaults = [
+        'default' => false
+    ];
+
 
     /**
      * Boolean constructor.

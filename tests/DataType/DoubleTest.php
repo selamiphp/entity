@@ -11,7 +11,7 @@ class MyDoubleClass extends DataType
     public function setUp()
     {
         $this->className    = '\\Selami\\Entity\\DataType\\Double';
-        $this->validValue   = true;
+        $this->validValue   = 0.1;
         $this->key          = 'ratio';
         $this->options      = [];
     }

@@ -11,7 +11,7 @@ class MyIntegerClass extends DataType
     public function setUp()
     {
         $this->className    = '\\Selami\\Entity\\DataType\\Integer';
-        $this->validValue   = true;
+        $this->validValue   = 1;
         $this->key          = 'is_active';
         $this->options      = [];
     }

@@ -60,7 +60,7 @@ abstract class DataType extends \PHPUnit_Framework_TestCase
     public function shouldReturnNormalizedValues($value, $expected, array $options = [])
     {
         $dataType = new $this->className($this->key, $value, $options);
-        $returnedValue  =$dataType->normalize();
+        $returnedValue = $dataType->normalize();
         $this->assertEquals($expected, $returnedValue);
     }
 }
