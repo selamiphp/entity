@@ -46,7 +46,6 @@ class Date extends DataTypeAbstract implements DataTypeInterface
         $this->key = $key;
         $this->datum = $datum;
         $this->options = array_merge(self::$defaults, $options);
-        $this->errorMessageTemplate = self::DATA_TYPE_ERROR;
     }
     /**
      * {@inheritdoc}
@@ -62,13 +61,13 @@ class Date extends DataTypeAbstract implements DataTypeInterface
     private function isString()
     {
         if (!is_string($this->datum)) {
+            $this->errorMessageTemplate = self::DATA_TYPE_ERROR;
             $this->throwException();
         }
     }
 
     private function checkFormat()
     {
-        $this->errorMessageTemplate = self::DATA_FORMAT_ERROR;
 
         if (in_array($this->datum, self::$validDateOptions, true)) {
             return true;
@@ -76,17 +75,18 @@ class Date extends DataTypeAbstract implements DataTypeInterface
         try {
             Assertion::date($this->datum, $this->options['format']);
         } catch (BadMethodCallException $e) {
+            $this->errorMessageTemplate = self::DATA_FORMAT_ERROR;
             $this->throwException();
         }
     }
 
     private function checkMin()
     {
-        $this->errorMessageTemplate = self::DATA_MIN_ERROR . $this->options['min'];
         if ($this->options['min'] === null) {
             return true;
         }
         if ($this->datum < $this->options['min']) {
+            $this->errorMessageTemplate = self::DATA_MIN_ERROR . $this->options['min'];
             $this->throwException();
         }
         return true;
@@ -94,11 +94,11 @@ class Date extends DataTypeAbstract implements DataTypeInterface
 
     private function checkMax()
     {
-        $this->errorMessageTemplate = self::DATA_MIN_ERROR . $this->options['max'];
         if ($this->options['max'] === null) {
             return true;
         }
         if ($this->datum > $this->options['min']) {
+            $this->errorMessageTemplate = self::DATA_MIN_ERROR . $this->options['max'];
             $this->throwException();
         }
         return true;

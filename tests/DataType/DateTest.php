@@ -47,10 +47,10 @@ class MyDateClass extends DataType
     public function defaultsProvider()
     {
         return [
-            ['now', ['format' => 'Y-m-d'], date('Y-m-d')],
-            ['1979-03-30', ['format' => 'Y-m-d', 'default' => 'now'], '1979-03-30'],
-            ['2000-02-19', ['format' => 'Y-m-d', 'default' => 'now'], '2000-02-19'],
-            ['1900-02-29', ['format' => 'Y-m-d', 'default' => '1979-03-18'], '1979-03-18']
+            ['now', date('Y-m-d'), ['format' => 'Y-m-d']],
+            ['1979-03-30', '1979-03-30', ['format' => 'Y-m-d', 'default' => 'now']],
+            ['2000-02-19', '2000-02-19', ['format' => 'Y-m-d', 'default' => 'now']],
+            ['1900-02-29', '1979-03-18', ['format' => 'Y-m-d', 'default' => '1979-03-18']]
         ];
     }
 }
