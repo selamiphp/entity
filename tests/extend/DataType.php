@@ -28,7 +28,7 @@ abstract class DataType extends \PHPUnit_Framework_TestCase
      * @param mixed $value
      * @param array $options
      */
-    public function shouldReturnTrueForValidDataAssertion($value, array $options=[])
+    public function shouldReturnTrueForValidDataAssertion($value, array $options = [])
     {
         $dataType = new $this->className($this->key, $value, $options);
         $this->assertTrue($dataType->assert());
@@ -42,7 +42,7 @@ abstract class DataType extends \PHPUnit_Framework_TestCase
      * @param array $options
      * @expectedException InvalidArgumentException
      */
-    public function shouldThrowExceptionForInvalidDataAssertion($value, array $options=[])
+    public function shouldThrowExceptionForInvalidDataAssertion($value, array $options = [])
     {
         $dataType = new $this->className($this->key, $value, $options);
         $dataType->assert();
@@ -57,7 +57,7 @@ abstract class DataType extends \PHPUnit_Framework_TestCase
      * @param array $expected
      */
 
-    public function shouldReturnNormalizedValues($value, $expected, array $options=[])
+    public function shouldReturnNormalizedValues($value, $expected, array $options = [])
     {
         $dataType = new $this->className($this->key, $value, $options);
         $returnedValue  =$dataType->normalize();
