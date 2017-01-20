@@ -41,7 +41,7 @@ class Xml implements ParserInterface
         } catch (\Exception $e) {
             throw new InvalidArgumentException($e->getMessage());
         }
-        $schema = $this->checkSchemaData($schemaData);
+        $schema = $this->getSchema($schemaData);
         return ['schema' => $schema];
     }
 
@@ -58,12 +58,9 @@ class Xml implements ParserInterface
         return true;
     }
 
-    private function checkSchemaData($schemaData)
+    private function getSchema($schemaData)
     {
-        if ($schemaData instanceof SimpleXMLElement) {
-            return $this->arrayWalkRecursively((array) $schemaData);
-        }
-        return [];
+        return $this->arrayWalkRecursively((array) $schemaData);
     }
 
     private function arrayWalkRecursively(array $schemaData)
