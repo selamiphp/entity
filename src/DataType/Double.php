@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Selami\Entity\DataType;
 
 use Selami\Entity\Interfaces\DataTypeInterface;
-use InvalidArgumentException;
 
 class Double implements DataTypeInterface
 {
@@ -26,17 +25,5 @@ class Double implements DataTypeInterface
             $this->throwException();
         }
         return true;
-    }
-    /**
-     * {@inheritdoc}
-     */
-    public function normalize()
-    {
-        try {
-            $this->assert();
-            return (float) $this->datum;
-        } catch (InvalidArgumentException $e) {
-            return (float) $this->options['default'];
-        }
     }
 }
