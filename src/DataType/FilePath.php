@@ -8,48 +8,11 @@ use InvalidArgumentException;
 
 class FilePath extends DataTypeAbstract implements DataTypeInterface
 {
-    const DATA_TYPE_ERROR   = 'Assertion failed for value "%s" for "%s" : INVALID_TYPE';
-
+    use DataTypeRegexTrait;
+    const DATA_FORMAT_ERROR   = 'Assertion failed for value "%s" for "%s" : INVALID_TYPE';
+    protected $regex = '#^[a-zA-Z0-9/._-]+$#';
+    protected $sanitizeFlags = FILTER_SANITIZE_URL;
     protected static $defaults = [
         'default'   => null
     ];
-
-    /**
-     * Slug constructor.
-     * @param string $key
-     * @param mixed $datum
-     * @param array $options
-     */
-    public function __construct(string $key, $datum, array $options = [])
-    {
-        $this->key = $key;
-        $this->datum = $datum;
-        $this->checkValidOptions($options);
-        $this->options = array_merge(self::$defaults, $options);
-    }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function assert()
-    {
-        if (!preg_match('#^[a-zA-Z0-9/._-]+$#', $this->datum)) {
-            $this->errorMessageTemplate = self::DATA_TYPE_ERROR;
-            $this->throwException();
-        }
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function normalize()
-    {
-        try {
-            $this->assert();
-            return filter_var($this->datum, FILTER_SANITIZE_URL);
-        } catch (InvalidArgumentException $e) {
-            return $this->options['default'];
-        }
-    }
 }
