@@ -7,8 +7,9 @@ use Selami\Entity\Interfaces\DataTypeInterface;
 use DateTime;
 use InvalidArgumentException;
 
-class Date extends DataTypeAbstract implements DataTypeInterface
+class Date implements DataTypeInterface
 {
+    use DataTypeFilterTrait;
     const DATA_TYPE_ERROR   = 'Error for value "%s" for "%s" : INVALID_TYPE. Must be a date string.';
     const DATA_FORMAT_ERROR = 'Error for value "%s" for "%s": INVALID_DATE_FORMAT';
     const DATA_MIN_ERROR    = 'Error for value "%s" for "%s": MIN_VALUE=';
@@ -33,20 +34,7 @@ class Date extends DataTypeAbstract implements DataTypeInterface
         'previous year',
     ];
 
-    /**
-     * Date constructor.
-     * @param string $key
-     * @param mixed $datum
-     * @param array $options
-     * @throws InvalidArgumentException
-     */
-    public function __construct(string $key, $datum, array $options = [])
-    {
-        $this->key = $key;
-        $this->datum = $datum;
-        $this->checkValidOptions($options);
-        $this->options = array_merge(self::$defaults, $options);
-    }
+
     /**
      * {@inheritdoc}
      */

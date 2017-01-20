@@ -5,7 +5,7 @@ namespace Selami\Entity\DataType;
 
 use Selami\Entity\Interfaces\DataTypeInterface;
 
-class Url extends DataTypeAbstract implements DataTypeInterface
+class Url implements DataTypeInterface
 {
     use DataTypeFilterTrait;
 

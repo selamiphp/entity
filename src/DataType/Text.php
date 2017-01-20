@@ -5,8 +5,9 @@ namespace Selami\Entity\DataType;
 
 use Selami\Entity\Interfaces\DataTypeInterface;
 
-class Text extends DataTypeAbstract implements DataTypeInterface
+class Text implements DataTypeInterface
 {
+    use DataTypeFilterTrait;
     const DATA_TYPE_ERROR   = 'Assertion failed for value "%s" for "%s" : INVALID_TYPE';
     const DATA_LENGTH       = 'Assertion failed for value "%s" for "%s" : INVALID_TEXT_LENGTH';
 
@@ -24,20 +25,6 @@ class Text extends DataTypeAbstract implements DataTypeInterface
         'right' => STR_PAD_RIGHT
     ];
 
-    /**
-     * Text constructor.
-     * @param string $key
-     * @param mixed $datum
-     * @param array $options
-     * @throws validArgumentException
-     */
-    public function __construct(string $key, $datum, array $options = [])
-    {
-        $this->key = $key;
-        $this->datum = $datum;
-        $this->checkValidOptions($options);
-        $this->options = array_merge(self::$defaults, $options);
-    }
     /**
      * {@inheritdoc}
      */

@@ -6,10 +6,12 @@ namespace Selami\Entity\DataType;
 use Selami\Entity\Interfaces\DataTypeInterface;
 use InvalidArgumentException;
 
-class Enum extends DataTypeAbstract implements DataTypeInterface
+class Enum implements DataTypeInterface
 {
+    use DataTypeFilterTrait;
     const DATA_TYPE_ERROR   = 'Assertion failed for value "%s" for "%s" : INVALID_TYPE';
 
+    protected $sanitizeFlags = FILTER_UNSAFE_RAW;
     protected static $defaults = [
         'default'   => false,
         'values'    => null
@@ -49,17 +51,5 @@ class Enum extends DataTypeAbstract implements DataTypeInterface
             $this->throwException();
         }
         return true;
-    }
-    /**
-     * {@inheritdoc}
-     */
-    public function normalize()
-    {
-        try {
-            $this->assert();
-            return filter_var($this->datum, FILTER_UNSAFE_RAW);
-        } catch (InvalidArgumentException $e) {
-            return filter_var($this->options['default'], FILTER_UNSAFE_RAW);
-        }
     }
 }

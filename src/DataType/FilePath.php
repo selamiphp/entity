@@ -6,7 +6,7 @@ namespace Selami\Entity\DataType;
 use Selami\Entity\Interfaces\DataTypeInterface;
 use InvalidArgumentException;
 
-class FilePath extends DataTypeAbstract implements DataTypeInterface
+class FilePath implements DataTypeInterface
 {
     use DataTypeRegexTrait;
     const DATA_FORMAT_ERROR   = 'Assertion failed for value "%s" for "%s" : INVALID_TYPE';

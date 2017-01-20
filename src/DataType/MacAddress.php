@@ -5,7 +5,7 @@ namespace Selami\Entity\DataType;
 
 use Selami\Entity\Interfaces\DataTypeInterface;
 
-class MacAddress extends DataTypeAbstract implements DataTypeInterface
+class MacAddress implements DataTypeInterface
 {
     use DataTypeFilterTrait;
     const DATA_TYPE_ERROR   = 'Assertion failed for value "%s" for "%s" : INVALID_MAC_ADDRESS_FORMAT';

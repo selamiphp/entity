@@ -19,7 +19,7 @@ class MyIntegerClass extends DataType
     public function trueProvider()
     {
         return [
-            [0],
+            [1],
             [PHP_INT_MIN],
             [PHP_INT_MAX]
         ];

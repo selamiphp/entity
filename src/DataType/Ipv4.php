@@ -5,7 +5,7 @@ namespace Selami\Entity\DataType;
 
 use Selami\Entity\Interfaces\DataTypeInterface;
 
-class Ipv4 extends DataTypeAbstract implements DataTypeInterface
+class Ipv4 implements DataTypeInterface
 {
     use DataTypeFilterTrait;
     const DATA_TYPE_ERROR   = 'Assertion failed for value "%s" for "%s" : INVALID_IP_V4_FORMAT';

@@ -6,27 +6,17 @@ namespace Selami\Entity\DataType;
 use Selami\Entity\Interfaces\DataTypeInterface;
 use InvalidArgumentException;
 
-class Integer extends DataTypeAbstract implements DataTypeInterface
+class Integer implements DataTypeInterface
 {
+    use DataTypeFilterTrait;
     const DATA_TYPE_ERROR   = 'Assertion failed for value "%s" for "%s" : INVALID_TYPE';
-
+    protected $sanitizeFlags = FILTER_SANITIZE_NUMBER_INT;
+    protected $filterFlags = [FILTER_VALIDATE_INT];
     protected static $defaults = [
         'default' => 0
     ];
 
 
-    /**
-     * Integer constructor.
-     * @param string $key
-     * @param mixed $datum
-     * @param array $options
-     */
-    public function __construct(string $key, $datum, array $options = [])
-    {
-        $this->key = $key;
-        $this->datum = $datum;
-        $this->options = array_merge(self::$defaults, $options);
-    }
     /**
      * {@inheritdoc}
      */
@@ -37,17 +27,5 @@ class Integer extends DataTypeAbstract implements DataTypeInterface
             $this->throwException();
         }
         return true;
-    }
-    /**
-     * {@inheritdoc}
-     */
-    public function normalize()
-    {
-        try {
-            $this->assert();
-            return (int) filter_var($this->datum, FILTER_SANITIZE_NUMBER_INT);
-        } catch (InvalidArgumentException $e) {
-            return (int) filter_var($this->options['default'], FILTER_SANITIZE_NUMBER_INT);
-        }
     }
 }

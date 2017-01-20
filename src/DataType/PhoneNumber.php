@@ -5,7 +5,7 @@ namespace Selami\Entity\DataType;
 
 use Selami\Entity\Interfaces\DataTypeInterface;
 
-class PhoneNumber extends DataTypeAbstract implements DataTypeInterface
+class PhoneNumber implements DataTypeInterface
 {
     use DataTypeRegexTrait;
     protected $regex = '/^\+?[1-9]\d{1,14}$/';

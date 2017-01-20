@@ -6,27 +6,14 @@ namespace Selami\Entity\DataType;
 use Selami\Entity\Interfaces\DataTypeInterface;
 use InvalidArgumentException;
 
-class Boolean extends DataTypeAbstract implements DataTypeInterface
+class Boolean implements DataTypeInterface
 {
+    use DataTypeFilterTrait;
     const DATA_TYPE_ERROR   = 'Assertion failed for value "%s" for "%s" : INVALID_TYPE';
 
     protected static $defaults = [
         'default' => false
     ];
-
-
-    /**
-     * Boolean constructor.
-     * @param string $key
-     * @param mixed $datum
-     * @param array $options
-     */
-    public function __construct(string $key, $datum, array $options = [])
-    {
-        $this->key = $key;
-        $this->datum = $datum;
-        $this->options = array_merge(self::$defaults, $options);
-    }
     /**
      * {@inheritdoc}
      */
@@ -37,17 +24,5 @@ class Boolean extends DataTypeAbstract implements DataTypeInterface
             $this->throwException();
         }
         return true;
-    }
-    /**
-     * {@inheritdoc}
-     */
-    public function normalize()
-    {
-        try {
-            $this->assert();
-            return $this->datum;
-        } catch (InvalidArgumentException $e) {
-            return $this->options['default'];
-        }
     }
 }

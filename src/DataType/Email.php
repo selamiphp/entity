@@ -5,7 +5,7 @@ namespace Selami\Entity\DataType;
 
 use Selami\Entity\Interfaces\DataTypeInterface;
 
-class Email extends DataTypeAbstract implements DataTypeInterface
+class Email implements DataTypeInterface
 {
     use DataTypeFilterTrait;
     const DATA_TYPE_ERROR   = 'Assertion failed for value "%s" for "%s" : INVALID_MAIL_ADDRESS_FORMAT';
