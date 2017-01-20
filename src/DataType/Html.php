@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Selami\Entity\DataType;
 
 use Selami\Entity\Interfaces\DataTypeInterface;
-use InvalidArgumentException;
 
 class Html implements DataTypeInterface
 {

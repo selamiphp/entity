@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Selami\Entity\DataType;
 
 use InvalidArgumentException;
+use Selami\Entity\getType;
 
 trait DataTypeFilterTrait
 {
@@ -78,7 +79,7 @@ trait DataTypeFilterTrait
     protected function checkValidOptions(array $options)
     {
         $validOptions = array_keys($this::$defaults);
-        foreach ($options as $optionKey => $optionValue) {
+        foreach (array_keys($options) as $optionKey) {
             if (!in_array($optionKey, $validOptions, true)) {
                 throw new InvalidArgumentException(sprintf(self::INVALID_OPTIONS, $optionKey));
             }

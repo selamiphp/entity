@@ -34,7 +34,6 @@ class Date implements DataTypeInterface
         'previous year',
     ];
 
-
     /**
      * {@inheritdoc}
      */
