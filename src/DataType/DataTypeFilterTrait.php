@@ -28,7 +28,9 @@ trait DataTypeFilterTrait
      */
     public function assert()
     {
-        if (!filter_var($this->datum, $this->filterFlags)) {
+        $filter = array_shift($this->filterFlags);
+        $options =['flags' => $this->filterFlags[0]??null];
+        if (!filter_var($this->datum, $filter, $options)) {
             $this->errorMessageTemplate = self::DATA_TYPE_ERROR;
             $this->throwException();
         }
