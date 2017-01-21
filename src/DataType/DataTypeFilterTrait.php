@@ -21,16 +21,16 @@ trait DataTypeFilterTrait
      * @var array
      */
     protected $options = [];
-
     protected $errorMessageTemplate;
     protected $filterFlags;
     protected $sanitizeFlags;
+
     /**
      * DataTypeFilterAbstract constructor.
      * @param string $key
      * @param mixed $datum
      * @param array $options
-     * @throws validArgumentException
+     * @throws InvalidArgumentException
      */
     public function __construct(string $key, $datum, array $options = [])
     {
@@ -39,6 +39,7 @@ trait DataTypeFilterTrait
         $this->checkValidOptions($options);
         $this->options = array_merge(self::$defaults, $options);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -74,14 +75,12 @@ trait DataTypeFilterTrait
         return $this->datum;
     }
 
-
-
     protected function checkValidOptions(array $options)
     {
         $validOptions = array_keys($this::$defaults);
         foreach (array_keys($options) as $optionKey) {
             if (!in_array($optionKey, $validOptions, true)) {
-                throw new InvalidArgumentException(sprintf(self::INVALID_OPTIONS, $optionKey));
+                throw new InvalidArgumentException(sprintf($this->invalidOptionsErrorMessage, $optionKey));
             }
         }
     }

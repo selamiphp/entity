@@ -12,12 +12,13 @@ trait DataTypeRegexTrait
      */
     public function assert()
     {
-        if (!preg_match(
+        if (@!preg_match(
             $this->regex,
             $this->datum
         )
         ) {
-            $this->errorMessageTemplate = self::DATA_FORMAT_ERROR;
+            $error = error_get_last();
+            $this->errorMessageTemplate = ($error !== null) ? $error['message'] : self::DATA_FORMAT_ERROR;
             $this->throwException();
         }
         return true;
