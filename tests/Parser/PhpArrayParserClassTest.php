@@ -129,7 +129,8 @@ class MyPhpArrayParserClass extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowFileNotFoundExceptionForInvalidArray()
     {
-        new PhpArray($this->imaginaryFile);
+        $parser = new PhpArray();
+        $parser->getConfigFromFile($this->imaginaryFile);
     }
 
 

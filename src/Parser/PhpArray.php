@@ -23,12 +23,11 @@ class PhpArray implements ParserInterface
      * @param string $configFileName
      * @throws FileNotFoundException
      */
-    public function __construct(string $configFileName)
+    public function __construct(string $configFileName=null)
     {
-        if (!file_exists($configFileName)) {
-            throw new FileNotFoundException('File %s couldn\t be found.');
+        if ($configFileName !== null) {
+            $this->configFile = $configFileName;
         }
-        $this->configFile = $configFileName;
     }
 
     /**
