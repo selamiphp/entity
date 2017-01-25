@@ -31,5 +31,4 @@ class Html implements DataTypeInterface
         }
         return true;
     }
-
 }
