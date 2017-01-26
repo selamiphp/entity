@@ -50,23 +50,6 @@ class Validator
 
     /**
      * @param string $itemKey
-     * @param array $properties
-     * @return bool
-     * @throws InvalidArgumentException
-     */
-    private function checkType(string $itemKey, array $properties)
-    {
-        if (!array_key_exists('type', $properties)) {
-            throw new InvalidArgumentException(sprintf('%s must have "type" property.', $itemKey));
-        }
-        if (!array_key_exists(upperCamelCase($properties['type']), self::$constraints)) {
-            throw new InvalidArgumentException(sprintf('%s is not valid DataType.', $properties['type']));
-        }
-        return true;
-    }
-
-    /**
-     * @param string $itemKey
      * @param mixed $item
      * @param array $properties
      * @return bool|string
@@ -86,51 +69,105 @@ class Validator
     }
 
     /**
+     * @param string $itemKey
+     * @param array $properties
+     * @return bool
+     * @throws InvalidArgumentException
+     */
+    private function checkType(string $itemKey, array $properties)
+    {
+        if (!array_key_exists('type', $properties)) {
+            throw new InvalidArgumentException(sprintf('%s must have "type" property.', $itemKey));
+        }
+        if (!array_key_exists(upperCamelCase($properties['type']), self::$constraints)) {
+            throw new InvalidArgumentException(sprintf('%s is not valid DataType.', $properties['type']));
+        }
+        return true;
+    }
+
+    /**
      * Validate given documents
      *
      * @param array $schema
      * @param array $myDoc
-     * @param string $myKey
+     * @param array $myKey
      * @return array
      * @throws InvalidArgumentException
      */
-    public function assertDoc(array $schema, array $myDoc, string $myKey = null)
+    public function assertDoc(array $schema, array $myDoc, array $myKey = null)
     {
         $myKeys = array_keys($myDoc);
         foreach ($myKeys as $key) {
-            $myDoc_key_type = getType($myDoc[$key]);
-            $vKey = $key;
-            if ($myKey !== null) {
-                $vKey = $myKey.'.'.$key;
-            }
-            // Does doc has an array key that does not exist in model definition.
-            if (!isset($schema[$key])) {
-                $message = sprintf('Error for key "%s" that does not exist in the model', $vKey);
-                throw new InvalidArgumentException($message);
-            } // Is the value of the array[key] again another array?
-            elseif ($myDoc_key_type === 'array') {
-                // Validate this array too.
-                $myDoc[$key] = $this->assertDoc($schema[$key], $myDoc[$key], $vKey);
-                if (getType($myDoc[$key]) !== 'array') {
-                    return $myDoc[$key];
-                }
-            } // Is the value of the array[key] have same variable type
-            //that stated in the definition of the model array.
-            elseif ($myDoc_key_type !== self::$validTypes[upperCamelCase($schema[$key]['type'])]) {
-                $message = sprintf(
-                    'Error for key "%s", %s given but it must be %s',
-                    $vKey,
-                    $myDoc_key_type,
-                    self::$validTypes[upperCamelCase($schema[$key]['type'])]
-                );
-                throw new InvalidArgumentException($message);
-            } else {
-                $assertedItem = $this->assertDocItem($vKey, $myDoc[$key], $schema[$key]);
-                if($assertedItem !== true) {
-                    throw new InvalidArgumentException($assertedItem);
-                }
-            }
+            $myDoc[$key] = $this->assertItem($schema, $myDoc, $key, $myKey);
         }
         return $myDoc;
+    }
+
+    /**
+     * @param array $schema
+     * @param array $myDoc
+     * @param string $key
+     * @param array $myKey
+     * @return array|bool|string
+     * @throws InvalidArgumentException;
+     */
+    private function assertItem(array $schema, array $myDoc, string $key, array $myKey = null)
+    {
+        $vKey = is_array($myKey) ? $myKey + [$key] : [$key];
+        $tmp = $this->isMulti($schema, $myDoc[$key], $key, $vKey);
+        if ($tmp !== false && is_array($tmp)) {
+            return $tmp;
+        }
+        $this->doesSchemaHasKey($schema, $key, $vKey);
+
+        $myDocKeyType = getType($myDoc[$key]);
+         $this->checkValueType($myDocKeyType, $schema[$key], $vKey);
+
+        $assertedItem = $this->assertDocItem($key, $myDoc[$key], $schema[$key]);
+        if ($assertedItem !== true) {
+            throw new InvalidArgumentException($assertedItem);
+        }
+        return $myDoc[$key];
+    }
+
+    private function isMulti(array $schema, $myDoc, $key, array $vKey)
+    {
+        if (array_key_exists($key, $schema) && is_array($schema[$key]) && array_key_exists('_many', $schema[$key])) {
+            $newDoc = [];
+            foreach ($myDoc as $mKey => $item) {
+                $tmpvKey = $vKey + [$mKey];
+                $newDoc[] = $this->assertDoc($schema[$key]['_many'], $item, $tmpvKey);
+            }
+            return $newDoc;
+        }
+        return false;
+    }
+
+    private function doesSchemaHasKey(array $schema, $key, $vKey)
+    {
+        // Does doc has an array key that does not exist in model definition.
+        if (!isset($schema[$key])) {
+            $message = sprintf('Error for key "%s" that does not exist in the model', implode('.', $vKey));
+            throw new InvalidArgumentException($message);
+        }
+    }
+
+    // Is the value of the array[key] have same variable type
+    //that stated in the definition of the model array.
+    private function checkValueType($myDocKeyType, $schemaKey, $vKey)
+    {
+        if (
+            is_array($schemaKey)
+            && array_key_exists('type', $schemaKey)
+            && $myDocKeyType  !== self::$validTypes[upperCamelCase($schemaKey['type'])]
+        ) {
+            $message = sprintf(
+                'Error for key "%s": %s value given but it must have been %s',
+                implode('.', $vKey),
+                $myDocKeyType,
+                self::$validTypes[upperCamelCase($schemaKey['type'])]
+            );
+            throw new InvalidArgumentException($message);
+        }
     }
 }
