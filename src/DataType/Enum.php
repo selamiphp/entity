@@ -34,7 +34,7 @@ class Enum implements DataTypeInterface
         $this->options = array_merge(self::$defaults, $options);
         if ($this->options['values'] === null
             || !is_array($this->options['values'])
-            || count($this->options['values']) < 3
+            || count($this->options['values']) < 2
         ) {
             throw new InvalidArgumentException('$options[values] must be an array has at least two elements');
         }
@@ -45,7 +45,6 @@ class Enum implements DataTypeInterface
      */
     public function assert()
     {
-
         if (!in_array($this->datum, $this->options['values'], true)) {
             $this->errorMessageTemplate = self::DATA_TYPE_ERROR;
             $this->throwException();
