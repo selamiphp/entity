@@ -136,6 +136,7 @@ class MyValidatorClass extends TestCase
 
     /**
      * @test
+     * @expectedException InvalidArgumentException
      */
     public function shouldReturnErrorForAssertDocItem()
     {

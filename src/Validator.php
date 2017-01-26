@@ -58,14 +58,10 @@ class Validator
     public function assertDocItem(string $itemKey, $item, array $properties)
     {
         $this->checkType($itemKey, $properties);
-        try {
-            $dataType = self::$constraints[upperCamelCase($properties['type'])];
-            unset($properties['type']);
-            $constraint = new $dataType($itemKey, $item, $properties);
-            return $constraint->assert();
-        } catch (InvalidArgumentException $e) {
-            return $e->getMessage();
-        }
+        $dataType = self::$constraints[upperCamelCase($properties['type'])];
+        unset($properties['type']);
+        $constraint = new $dataType($itemKey, $item, $properties);
+        return $constraint->assert();
     }
 
     /**
@@ -114,25 +110,20 @@ class Validator
     private function assertItem(array $schema, array $myDoc, string $key, array $myKey = null)
     {
         $vKey = is_array($myKey) ? $myKey + [$key] : [$key];
+        $this->doesSchemaHasKey($schema, $key, $vKey);
         $tmp = $this->isMulti($schema, $myDoc[$key], $key, $vKey);
         if ($tmp !== false && is_array($tmp)) {
             return $tmp;
         }
-        $this->doesSchemaHasKey($schema, $key, $vKey);
-
         $myDocKeyType = getType($myDoc[$key]);
-         $this->checkValueType($myDocKeyType, $schema[$key], $vKey);
-
-        $assertedItem = $this->assertDocItem($key, $myDoc[$key], $schema[$key]);
-        if ($assertedItem !== true) {
-            throw new InvalidArgumentException($assertedItem);
-        }
+        $this->checkValueType($myDocKeyType, $schema[$key], $vKey);
+        $this->assertDocItem($key, $myDoc[$key], $schema[$key]);
         return $myDoc[$key];
     }
 
     private function isMulti(array $schema, $myDoc, $key, array $vKey)
     {
-        if (array_key_exists($key, $schema) && is_array($schema[$key]) && array_key_exists('_many', $schema[$key])) {
+        if (array_key_exists('_many', $schema[$key])) {
             $newDoc = [];
             foreach ($myDoc as $mKey => $item) {
                 $tmpvKey = $vKey + [$mKey];
@@ -146,7 +137,7 @@ class Validator
     private function doesSchemaHasKey(array $schema, $key, $vKey)
     {
         // Does doc has an array key that does not exist in model definition.
-        if (!isset($schema[$key])) {
+        if (!array_key_exists($key, $schema)) {
             $message = sprintf('Error for key "%s" that does not exist in the model', implode('.', $vKey));
             throw new InvalidArgumentException($message);
         }
@@ -156,9 +147,7 @@ class Validator
     //that stated in the definition of the model array.
     private function checkValueType($myDocKeyType, $schemaKey, $vKey)
     {
-        if (
-            is_array($schemaKey)
-            && array_key_exists('type', $schemaKey)
+        if (array_key_exists('type', $schemaKey)
             && $myDocKeyType  !== self::$validTypes[upperCamelCase($schemaKey['type'])]
         ) {
             $message = sprintf(
