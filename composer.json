@@ -30,7 +30,7 @@
             "Selami\\Entity\\": "src/"
         },
         "files":[
-          "src/functions.php"
+            "src/functions.php"
         ]
     },
     "autoload-dev": {

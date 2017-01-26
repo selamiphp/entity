@@ -16,7 +16,7 @@ class ParserFactory
         'xml'   => Xml::class,
         'php'   => PhpArray::class
     ];
-    static public function createParser(string $parserType)
+    public static function createParser(string $parserType)
     {
         if (!in_array($parserType, self::$validParsers, true)) {
             $message = sprintf(
