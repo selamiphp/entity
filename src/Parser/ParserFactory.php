@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Selami\Entity\Parser;
 
+use InvalidArgumentException;
+
 class ParserFactory
 {
     /**
@@ -18,13 +20,13 @@ class ParserFactory
     ];
     public static function createParser(string $parserType)
     {
-        if (!in_array($parserType, self::$validParsers, true)) {
+        if (!array_key_exists($parserType, self::$validParsers)) {
             $message = sprintf(
                 'Invalid parser type: %s. Valid types are case sensitive and possible values are: %s',
                 $parserType,
                 implode(', ', array_keys(self::$validParsers))
             );
-            throw new UnexpectedValueException($message);
+            throw new InvalidArgumentException($message);
         }
         return new self::$validParsers[$parserType]();
     }
