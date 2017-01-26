@@ -6,8 +6,9 @@ namespace tests;
 use Selami\Entity\Parser\ConfigIni;
 use Selami\Entity\Interfaces\ParserInterface;
 use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 
-class MyConfigIniParserClass extends \PHPUnit_Framework_TestCase
+class MyConfigIniParserClass extends TestCase
 {
     protected $validSchema = '
 
