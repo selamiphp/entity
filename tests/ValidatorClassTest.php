@@ -20,22 +20,13 @@ class MyValidatorClass extends TestCase
         'is_active' => [
             'type'  => 'enum',
             'values' => ['0', '1']
-        ],
-        'children' => [
-            'name' => [
-                'type' => 'text'
-            ]
         ]
     ];
 
     public $validData = [
         'id'        => 1,
         'email'     => 'mehmet@github.com',
-        'is_active' => '1',
-        'children'  => [
-            ['name' => 'Jon'],
-            ['name' => 'Jane']
-        ]
+        'is_active' => '1'
     ];
 
 
