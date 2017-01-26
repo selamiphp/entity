@@ -9,7 +9,7 @@ interface DataTypeInterface
 {
     /**
      * @throws InvalidArgumentException
-     * @return true
+     * @return boolean
      */
     public function assert();
 
