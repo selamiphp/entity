@@ -109,7 +109,7 @@ class Yaml implements ParserInterface
     private function symfonyParse()
     {
         try {
-            return SymfonyYaml\Yaml::parse($this->schemaConfig, 0);
+            return (array) SymfonyYaml\Yaml::parse($this->schemaConfig, 0);
         } catch (SymfonyParseException $e) {
             throw new InvalidArgumentException($e->getMessage());
         }
