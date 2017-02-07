@@ -7,7 +7,7 @@ use Selami\Entity\Exception\FileNotFoundException;
 use Selami\Entity\Parser\ParserTrait;
 use InvalidArgumentException;
 
-class MyParserTrait extends \PHPUnit_Framework_TestCase
+class MyParserTrait extends \PHPUnit\Framework\TestCase
 {
 
 

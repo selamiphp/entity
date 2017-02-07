@@ -7,7 +7,7 @@ use Selami\Entity\Parser\PhpArray;
 use Selami\Entity\Interfaces\ParserInterface;
 use InvalidArgumentException;
 
-class MyPhpArrayParserClass extends \PHPUnit_Framework_TestCase
+class MyPhpArrayParserClass extends \PHPUnit\Framework\TestCase
 {
     protected $validSchema;
 

@@ -4,8 +4,9 @@ declare(strict_types=1);
 namespace Selami\Test\Abstracts;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 
-abstract class DataType extends \PHPUnit_Framework_TestCase
+abstract class DataType extends TestCase
 {
     protected $className;
     protected $validValue;

@@ -7,7 +7,7 @@ use Selami\Entity\Interfaces\ParserInterface;
 use Selami\Entity\Parser\Json;
 use InvalidArgumentException;
 
-class MyJsonParserClass extends \PHPUnit_Framework_TestCase
+class MyJsonParserClass extends \PHPUnit\Framework\TestCase
 {
     protected $validSchema = '
         {

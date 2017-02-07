@@ -6,7 +6,7 @@ namespace tests;
 use Selami\Entity\Parser\Yaml;
 use Selami\Entity\Interfaces\ParserInterface;
 
-class MyYamlParserClass extends \PHPUnit_Framework_TestCase
+class MyYamlParserClass extends \PHPUnit\Framework\TestCase
 {
     protected $validSchema = '
 schema:

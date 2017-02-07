@@ -6,7 +6,7 @@ namespace tests;
 use Selami\Entity\Parser\Xml;
 use Selami\Entity\Interfaces\ParserInterface;
 
-class MyXmlParserClass extends \PHPUnit_Framework_TestCase
+class MyXmlParserClass extends \PHPUnit\Framework\TestCase
 {
 
     protected $validSchema = '<?xml version="1.0"?>
