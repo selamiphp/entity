@@ -6,7 +6,7 @@ namespace Selami\Entity;
 use Selami\Entity\DataType;
 use InvalidArgumentException;
 
-class Validator
+final class Validator
 {
     static protected $constraints = [
         'Boolean'   => DataType\Boolean::class,
@@ -47,6 +47,10 @@ class Validator
         'Url'       => 'string',
         'Uuid'      => 'string'
     ];
+
+    public function __construct()
+    {
+    }
 
     /**
      * @param string $itemKey
