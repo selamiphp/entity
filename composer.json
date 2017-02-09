@@ -20,7 +20,8 @@
     "require-dev": {
         "phpunit/phpunit": "^6.0",
         "phpunit/phpcov": "^4.0",
-        "satooshi/php-coveralls": "^1.0"
+        "satooshi/php-coveralls": "^1.0",
+        "codeclimate/php-test-reporter": "dev-master"
     },
     "suggest":{
         "ext-yaml": "Needed to support native yaml parser. Default parser is Symfony Yaml Parser"
