@@ -1,31 +1,13 @@
 language: php
-
 sudo: false
-
 php:
-  - 7.1
-  - 7.0
-
-
+  - 7.2
 before_script:
-  - pecl channel-update pecl.php.net
-  - pecl install yaml-2.0.0 < /dev/null
-  - echo "extension = yaml.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer install -n
-
-addons:
-  apt:
-    packages:
-      - libyaml-dev
-addons:
-  code_climate:
-    repo_token: b0a53bb7d832d3d4fc6cc499e3709d2206238cb0ba4da93b4e97d1150f17d453
 script:
-  - phpunit --coverage-clover build/logs/clover.xml
-
+  - vendor/bin/codecept run unit --coverage --coverage-xml
 after_script:
-  - if [ $TRAVIS_PHP_VERSION >= '7.0' ]; then php vendor/bin/coveralls; fi
-
+  - if [ $TRAVIS_PHP_VERSION = '7.2' ]; then php vendor/bin/php-coveralls; fi
 after_success:
-  - travis_retry php vendor/bin/coveralls -v
+  - travis_retry php vendor/bin/php-coveralls -v
   - vendor/bin/test-reporter

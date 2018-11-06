@@ -1,0 +1,287 @@
+<?php
+$coverage = new SebastianBergmann\CodeCoverage\CodeCoverage;
+$coverage->setData(array (
+  '/Volumes/MK/Projects/selamiphp/entity/src/Entity.php' => 
+  array (
+    26 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+      2 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    27 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+      2 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    28 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+      2 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    29 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+      2 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    31 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+      2 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    32 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+      2 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    36 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+      2 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    37 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+      2 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    39 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+      2 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    43 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+    ),
+    44 => NULL,
+    48 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+      2 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    49 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+      2 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    53 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+    ),
+    54 => NULL,
+    58 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+    ),
+    59 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+    ),
+    63 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    64 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    65 => 
+    array (
+      0 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    66 => 
+    array (
+      0 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    67 => 
+    array (
+      0 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    68 => 
+    array (
+      0 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    69 => 
+    array (
+      0 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    70 => 
+    array (
+      0 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    71 => 
+    array (
+      0 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    72 => 
+    array (
+      0 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    74 => 
+    array (
+      0 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    75 => 
+    array (
+      0 => 'EntityTest::shouldFailForRequiredInput',
+    ),
+    78 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+    ),
+    79 => NULL,
+    83 => 
+    array (
+      0 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+    ),
+    84 => NULL,
+    88 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+    ),
+    89 => NULL,
+    93 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+    ),
+    94 => NULL,
+    98 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+      2 => 'EntityTest::shouldFailForAModelFileDoesNotExist',
+    ),
+    99 => 
+    array (
+      0 => 'EntityTest::shouldFailForAModelFileDoesNotExist',
+    ),
+    101 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+    ),
+    102 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+    ),
+    103 => NULL,
+    107 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+    ),
+    108 => NULL,
+  ),
+  '/Volumes/MK/Projects/selamiphp/entity/src/Model.php' => 
+  array (
+    15 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+      2 => 'EntityTest::shouldFailForRequiredInput',
+      3 => 'ModelTest::shouldReturnModelObjectSuccessfully',
+      4 => 'ModelTest::shouldFailForAFileThatContainsInvalidJson',
+    ),
+    16 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldCompareTwoEntityObjectSuccessfully',
+      2 => 'EntityTest::shouldFailForRequiredInput',
+      3 => 'ModelTest::shouldReturnModelObjectSuccessfully',
+    ),
+    20 => 
+    array (
+      0 => 'EntityTest::shouldReturnEntityObjectSuccessfully',
+      1 => 'EntityTest::shouldFailForRequiredInput',
+      2 => 'ModelTest::shouldReturnModelObjectSuccessfully',
+    ),
+    21 => NULL,
+    25 => 
+    array (
+      0 => 'EntityTest::shouldFailForRequiredInput',
+      1 => 'ModelTest::shouldReturnModelObjectSuccessfully',
+      2 => 'ModelTest::shouldFailForAFileThatDoesNotExist',
+      3 => 'ModelTest::shouldFailForAFileThatContainsInvalidJson',
+    ),
+    26 => 
+    array (
+      0 => 'ModelTest::shouldFailForAFileThatDoesNotExist',
+    ),
+    28 => 
+    array (
+      0 => 'EntityTest::shouldFailForRequiredInput',
+      1 => 'ModelTest::shouldReturnModelObjectSuccessfully',
+      2 => 'ModelTest::shouldFailForAFileThatContainsInvalidJson',
+    ),
+    29 => NULL,
+  ),
+  '/Volumes/MK/Projects/selamiphp/entity/src/Exception/InvalidArgumentException.php' => 
+  array (
+  ),
+  '/Volumes/MK/Projects/selamiphp/entity/src/Exception/UnexpectedValueException.php' => 
+  array (
+  ),
+));
+$coverage->setTests(array (
+  'EntityTest::shouldReturnEntityObjectSuccessfully' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'EntityTest::shouldCompareTwoEntityObjectSuccessfully' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'EntityTest::shouldFailForRequiredInput' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'EntityTest::shouldFailForAModelFileDoesNotExist' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'ModelTest::shouldReturnModelObjectSuccessfully' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'ModelTest::shouldFailForAFileThatDoesNotExist' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+  'ModelTest::shouldFailForAFileThatContainsInvalidJson' => 
+  array (
+    'size' => 'unknown',
+    'status' => 0,
+  ),
+));
+
+$filter = $coverage->filter();
+$filter->setWhitelistedFiles(array (
+  '/Volumes/MK/Projects/selamiphp/entity/src/Entity.php' => true,
+  '/Volumes/MK/Projects/selamiphp/entity/src/Exception/InvalidArgumentException.php' => true,
+  '/Volumes/MK/Projects/selamiphp/entity/src/Exception/UnexpectedValueException.php' => true,
+  '/Volumes/MK/Projects/selamiphp/entity/src/Model.php' => true,
+));
+
+return $coverage;
