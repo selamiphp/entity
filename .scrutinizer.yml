@@ -9,8 +9,10 @@ build:
     php: '7.2'
   tests:
     override:
-      -
-command: ./vendor/bin/codecept run unit --coverage --coverage-xml
+      - command: ./vendor/bin/codecept run unit --coverage --coverage-xml
+        analysis:
+          file: tests/_output/coverage.xml
+          format: 'general-checkstyle'
 filter:
   excluded_paths:
     - "tests/"
