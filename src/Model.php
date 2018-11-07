@@ -8,23 +8,39 @@ use Selami\Entity\Exception\UnexpectedValueException;
 
 final class Model
 {
-    private $schema;
+    private $model;
+    private $requiredFields;
 
     public function __construct(string $jsonSchema)
     {
-        $this->schema = Schema::fromJsonString($jsonSchema);
+        $this->model = json_decode($jsonSchema);
+        if (json_last_error() === JSON_ERROR_NONE) {
+            $this->requiredFields = $this->model->required;
+        }
     }
 
-    public function getSchema()  : Schema
+    public function getModel() : \stdClass
     {
-        return $this->schema;
+        return $this->model;
+    }
+    public function getRequiredFields() : array
+    {
+        return $this->requiredFields;
     }
 
-    public static function fromJsonFile(string $filePath) : Model
+    public function getSchema(?\stdClass $model = null)  : Schema
+    {
+        if ($model !== null) {
+            return new Schema($model);
+        }
+        return new Schema($this->model);
+    }
+
+    public static function createFromJsonFile(string $filePath) : Model
     {
         if (!file_exists($filePath)) {
             throw new UnexpectedValueException(sprintf('Model definition file (%s) does not exist!', $filePath));
         }
-        return new static(file_get_contents($filePath));
+        return new self(file_get_contents($filePath));
     }
 }

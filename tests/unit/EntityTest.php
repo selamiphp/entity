@@ -50,6 +50,20 @@ class EntityTest extends \Codeception\Test\Unit
     /**
      * @test
      */
+    public function shouldValidatePartiallySuccessfully() : void
+    {
+        $entity = Entity::createFromJsonFile(__DIR__.'/../resources/test-schema.json');
+        $entity->name = 'John Doe';
+        $entity->age = 31;
+        $requiredFields = ['name', 'age'];
+        $this->assertTrue($entity->validatePartially($requiredFields));
+        $requiredFields = ['name', 'age', 'email'];
+        $this->expectException(\Selami\Entity\Exception\InvalidArgumentException::class);
+        $entity->validatePartially($requiredFields);
+    }
+    /**
+     * @test
+     */
     public function shouldCompareTwoEntityObjectSuccessfully() : void
     {
         $id = Uuid::uuid4()->toString();
@@ -80,13 +94,15 @@ class EntityTest extends \Codeception\Test\Unit
     }
 
 
+
+
     /**
      * @test
      * @expectedException \Selami\Entity\Exception\InvalidArgumentException
      */
     public function shouldFailForRequiredInput() : void
     {
-        $model = Model::fromJsonFile(__DIR__.'/../resources/test-schema.json');
+        $model = Model::createFromJsonFile(__DIR__.'/../resources/test-schema.json');
         $entity = new Entity($model);
         $entity->name = 'John Doe';
         $entity->age = 31;

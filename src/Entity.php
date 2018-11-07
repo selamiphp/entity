@@ -60,7 +60,20 @@ final class Entity implements JsonSerializable
 
     public function validate() : bool
     {
-        $validation = (new Validator())->schemaValidation($this->data, $this->model->getSchema());
+        return $this->validateData($this->data, $this->model->getSchema());
+    }
+
+    public function validatePartially(array $requiredFields) : bool
+    {
+        $model = $this->model->getModel();
+        $model->required = $requiredFields;
+        $schema = $this->model->getSchema($model);
+        return $this->validateData($this->data, $schema);
+    }
+
+    private function validateData($data, $schema) : bool
+    {
+        $validation = (new Validator())->schemaValidation($data, $schema);
         if (!$validation->isValid()) {
             $errors = $validation->getErrors();
             $message = 'Data validation failed.' . PHP_EOL;
@@ -77,6 +90,7 @@ final class Entity implements JsonSerializable
         }
         return true;
     }
+
 
     public function equals($rightHandedObject) : bool
     {
@@ -104,6 +118,6 @@ final class Entity implements JsonSerializable
 
     public static function createFromJson($json) : Entity
     {
-        return new static(new Model($json));
+        return new self(new Model($json));
     }
 }

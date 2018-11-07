@@ -23,8 +23,18 @@ class ModelTest extends \Codeception\Test\Unit
      */
     public function shouldReturnModelObjectSuccessfully() : void
     {
-        $model = Model::fromJsonFile(__DIR__.'/../resources/test-schema.json');
+        $model = Model::createFromJsonFile(__DIR__.'/../resources/test-schema.json');
         $schema = $model->getSchema();
+        $this->assertEquals('http://api.example.com/profile.json#', $schema->id());
+
+        $jsonSchema = file_get_contents(__DIR__.'/../resources/test-schema.json');
+        $tmpSchema = json_decode($jsonSchema);
+        $requiredFields = $tmpSchema->required;
+        $model = new Model($jsonSchema);
+        $this->assertEquals($tmpSchema, $model->getModel());
+        $modelRequiredFields = $model->getRequiredFields();
+        $this->assertEquals($modelRequiredFields, $requiredFields);
+        $schema = $model->getSchema($tmpSchema);
         $this->assertEquals('http://api.example.com/profile.json#', $schema->id());
     }
 
@@ -34,7 +44,7 @@ class ModelTest extends \Codeception\Test\Unit
      */
     public function shouldFailForAFileThatDoesNotExist() : void
     {
-        $model = Model::fromJsonFile(__DIR__.'/../resources/test-schema-does-not-exist.json');
+        $model = Model::createFromJsonFile(__DIR__.'/../resources/test-schema-does-not-exist.json');
         $model->getSchema();
     }
 
@@ -44,7 +54,7 @@ class ModelTest extends \Codeception\Test\Unit
      */
     public function shouldFailForAFileThatContainsInvalidJson() : void
     {
-        $model = Model::fromJsonFile(__DIR__.'/../resources/test-schema-invalid-json.json');
+        $model = Model::createFromJsonFile(__DIR__.'/../resources/test-schema-invalid-json.json');
         $model->getSchema();
     }
 }
