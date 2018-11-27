@@ -54,7 +54,8 @@ trait ObjectTrait
 
     private function validateData($data, $schema) : bool
     {
-        $validation = (new Validator())->schemaValidation($data, $schema);
+        $validation = (new Validator())
+            ->schemaValidation($data, $schema);
         if (!$validation->isValid()) {
             $errors = $validation->getErrors();
             $message = 'Data validation failed.' . PHP_EOL;
