@@ -124,7 +124,6 @@ namespace MyLibrary\Entity;
 
 use JsonSerializable;
 use stdClass;
-
 use Selami\Entity\Model;
 use Selami\Entity\EntityTrait;
 
@@ -132,7 +131,7 @@ final ProfileEntity implements JsonSerializable
 {
 	private static schemaFile = 'models/profile';
 
-    use EntityTrait;    
+	use EntityTrait;    
     
 	public static function create(string $id, ?stdClass $data=null)
 	{
