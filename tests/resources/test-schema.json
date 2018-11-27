@@ -15,7 +15,7 @@
     },
     "age": {
       "type": "integer",
-      "minimum": 18,
+      "minimum": 9,
       "maximum": 100
     },
     "email": {
@@ -79,7 +79,6 @@
       }
     }
   },
-  "required": ["id","name", "age", "email", "location",
-    "available_for_hire", "interests", "skills"],
+  "required": ["id", "name", "age", "email", "location", "available_for_hire", "interests", "skills"],
   "additionalProperties": false
 }

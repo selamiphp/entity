@@ -11,7 +11,7 @@
     },
     "age": {
       "type": "integer",
-      "minimum": 18,
+      "minimum": 9,
       "maximum": 100
     },
     "email": {
@@ -28,7 +28,7 @@
       "type": "object",
       "properties": {
         "country": {
-          "enum": ["US", "CA", "GB"]
+          "enum": ["US", "CA", "GB", "TR"]
         },
         "address": {
           "type": "string",
@@ -75,7 +75,6 @@
       }
     }
   },
-  "required": ["name", "age", "email", "location",
-    "available_for_hire", "interests", "skills"],
+  "required": ["name", "age", "email", "location", "available_for_hire", "interests", "skills"],
   "additionalProperties": false
 }

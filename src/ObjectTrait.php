@@ -34,14 +34,6 @@ trait ObjectTrait
         return $this->validateData($this->data, $this->model->getSchema());
     }
 
-    final public function validatePartially(array $requiredFields) : bool
-    {
-        $model = $this->model->getModel();
-        $model->required = $requiredFields;
-        $schema = $this->model->getSchema($model);
-        return $this->validateData($this->data, $schema);
-    }
-
     private function validateData($data, $schema) : bool
     {
         $validation = (new Validator())

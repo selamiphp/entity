@@ -52,25 +52,6 @@ class ValueObjectTest extends \Codeception\Test\Unit
     /**
      * @test
      */
-    public function shouldValidatePartiallySuccessfully() : void
-    {
-        $valueObject = new stdClass();
-        $valueObject->name = 'John Doe';
-        $valueObject->age = 31;
-        $requiredFields = ['name', 'age'];
-        $valObject = ValueObject::createFromJsonFile(
-            __DIR__.'/../resources/test-schema-value-object.json',
-            $valueObject
-        );
-
-        $this->assertTrue($valObject->validatePartially($requiredFields));
-        $requiredFields = ['name', 'age', 'email'];
-        $this->expectException(\Selami\Entity\Exception\InvalidArgumentException::class);
-        $valObject->validatePartially($requiredFields);
-    }
-    /**
-     * @test
-     */
     public function shouldCompareTwoValueObjectSuccessfully() : void
     {
         $object1 = new stdClass();
@@ -78,19 +59,46 @@ class ValueObjectTest extends \Codeception\Test\Unit
         $object3 = new stdClass();
 
         $object1->name = 'Kedibey';
-        $object1->details = new stdClass();
-        $object1->details->age = 11;
-        $object1->details->type = 'Angora';
+        $object1->age = 11;
+        $object1->email = 'kedibey@world-of-wonderful-cats-yay.com';
+        $object1->website = 'orld-of-wonderful-cats-yay.com';
+        $object1->location = new stdClass();
+        $object1->location->country = 'TR';
+        $object1->location->address = 'Kadıköy, İstanbul';
+        $object1->available_for_hire = true;
+        $object1->interests = ['napping', 'eating', 'bird gazing'];
+        $object1->skills = [];
+        $object1->skills[0] = new stdClass();
+        $object1->skills[0]->name = 'PHP';
+        $object1->skills[0]->value = 0;
 
         $object2->name = 'Kedibey';
-        $object2->details = new stdClass();
-        $object2->details->age = 11;
-        $object2->details->type = 'Angora';
+        $object2->age = 11;
+        $object2->email = 'kedibey@world-of-wonderful-cats-yay.com';
+        $object2->website = 'orld-of-wonderful-cats-yay.com';
+        $object2->location = new stdClass();
+        $object2->location->country = 'TR';
+        $object2->location->address = 'Kadıköy, İstanbul';
+        $object2->available_for_hire = true;
+        $object2->interests = ['napping', 'eating', 'bird gazing'];
+        $object2->skills = [];
+        $object2->skills[0] = new stdClass();
+        $object2->skills[0]->name = 'PHP';
+        $object2->skills[0]->value = 0;
 
         $object3->name = 'Kedibey';
-        $object3->details = new stdClass();
-        $object3->details->age = 11;
-        $object3->details->type = 'Van';
+        $object3->age = 12;
+        $object3->email = 'kedibey@world-of-wonderful-cats-yay.com';
+        $object3->website = 'orld-of-wonderful-cats-yay.com';
+        $object3->location = new stdClass();
+        $object3->location->country = 'TR';
+        $object3->location->address = 'Kadıköy, İstanbul';
+        $object3->available_for_hire = true;
+        $object3->interests = ['napping', 'eating', 'bird gazing'];
+        $object3->skills = [];
+        $object3->skills[0] = new stdClass();
+        $object3->skills[0]->name = 'PHP';
+        $object3->skills[0]->value = 0;
 
         $valueObject1 = ValueObject::createFromJsonFile(
             __DIR__.'/../resources/test-schema-value-object.json',
@@ -107,9 +115,6 @@ class ValueObjectTest extends \Codeception\Test\Unit
         $this->assertTrue($valueObject1->equals($valueObject2));
         $this->assertFalse($valueObject1->equals($valueObject3));
     }
-
-
-
 
     /**
      * @test
@@ -143,7 +148,24 @@ class ValueObjectTest extends \Codeception\Test\Unit
      */
     public function shouldFailForSettingNewValue() : void
     {
-        $valueObject = ValueObject::createFromJsonFile(__DIR__.'/../resources/test-schema-value-object.json', new stdClass());
+        $object1 = new stdClass();
+        $object1->name = 'Kedibey';
+        $object1->age = 11;
+        $object1->email = 'kedibey@world-of-wonderful-cats-yay.com';
+        $object1->website = 'orld-of-wonderful-cats-yay.com';
+        $object1->location = new stdClass();
+        $object1->location->country = 'TR';
+        $object1->location->address = 'Kadıköy, İstanbul';
+        $object1->available_for_hire = true;
+        $object1->interests = ['napping', 'eating', 'bird gazing'];
+        $object1->skills = [];
+        $object1->skills[0] = new stdClass();
+        $object1->skills[0]->name = 'PHP';
+        $object1->skills[0]->value = 0;
+        $valueObject = ValueObject::createFromJsonFile(
+            __DIR__.'/../resources/test-schema-value-object.json',
+            $object1
+        );
         $valueObject->name = 'Kedibey';
     }
     /**
@@ -152,12 +174,23 @@ class ValueObjectTest extends \Codeception\Test\Unit
      */
     public function shouldFailForUnsettingAValue() : void
     {
-        $object = new stdClass();
-        $object->name='Mırmır';
-
+        $object1 = new stdClass();
+        $object1->name = 'Kedibey';
+        $object1->age = 11;
+        $object1->email = 'kedibey@world-of-wonderful-cats-yay.com';
+        $object1->website = 'orld-of-wonderful-cats-yay.com';
+        $object1->location = new stdClass();
+        $object1->location->country = 'TR';
+        $object1->location->address = 'Kadıköy, İstanbul';
+        $object1->available_for_hire = true;
+        $object1->interests = ['napping', 'eating', 'bird gazing'];
+        $object1->skills = [];
+        $object1->skills[0] = new stdClass();
+        $object1->skills[0]->name = 'PHP';
+        $object1->skills[0]->value = 0;
         $valueObject = ValueObject::createFromJsonFile(
             __DIR__.'/../resources/test-schema-value-object.json',
-            $object
+            $object1
         );
         unset($valueObject->name);
     }
