@@ -57,9 +57,9 @@ $valueObject = ValueObject::createFromJsonFile('./models/profile.json', $data);
 - Entities require id property.
 - Entities are not Immutable.
 - Entities are not automatically validated on object creation.
-- When validation failed ıt throws InvalidArgumentException.
+- When validation failed it throws InvalidArgumentException.
 - It is possible to partially validate Entities.
-- It can be used to form data validation, data validation to persist it, etc...
+- It can be used to form data validation, data validation before persisting it, etc...
 
 ```php
 <?php
