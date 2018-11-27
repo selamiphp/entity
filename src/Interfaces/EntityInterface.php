@@ -7,6 +7,7 @@ use JsonSerializable;
 
 interface EntityInterface extends JsonSerializable
 {
+    public function entityId() : string;
     public function validate() : bool;
     public function equals(object $object) : bool;
     public static function createFromJsonFile(string $filePath, string $id) : EntityInterface;

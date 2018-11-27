@@ -45,6 +45,11 @@ trait EntityTrait
         return new static(new Model($json), $id);
     }
 
+    public function entityId() : string
+    {
+        return $this->data->id;
+    }
+
     public function validatePartially(array $requiredFields) : bool
     {
         $model = $this->model->getModel();

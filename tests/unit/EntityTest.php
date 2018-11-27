@@ -39,6 +39,7 @@ class EntityTest extends \Codeception\Test\Unit
         $item->name = 'PHP';
         $item->value = 100;
         $entity->skills = [$item];
+        $this->assertEquals($id, $entity->entityId());
         $this->assertTrue($entity->validate());
         $arrayFromJson = json_decode(json_encode($entity), true);
         $this->assertEquals(31, $arrayFromJson['age']);
