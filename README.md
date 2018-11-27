@@ -115,6 +115,34 @@ $entity->validatePartially(partiallyValidateFields);
 
 ### Example of intended usage
 
+#### Value Object Example
+
+```php
+<?php
+declare(strict_types=1);
+
+namespace MyLibrary\ValueObject;
+
+use Selami\Entity\Interfaces\ValueObjectInterface;
+use stdClass;
+use Selami\Entity\Model;
+use Selami\Entity\ValueObjectTrait;
+
+final ProfileValueObject implements ValueObjectInterface
+{
+	private static schemaFile = 'models/profile';
+
+	use ValueObject;    
+    
+	public static function create(stdClass $data) : ValueObjectInterface
+	{
+		$model = Model::createFromJsonFile(self::$schemaFile);
+		return static($model, $data)
+	}
+}
+
+
+#### Entity Example
 
 ```php
 <?php
@@ -122,18 +150,18 @@ declare(strict_types=1);
 
 namespace MyLibrary\Entity;
 
-use JsonSerializable;
+use Selami\Entity\Interfaces\EntityInterface;
 use stdClass;
 use Selami\Entity\Model;
 use Selami\Entity\EntityTrait;
 
-final ProfileEntity implements JsonSerializable
+final ProfileEntity implements EntityInterface
 {
 	private static schemaFile = 'models/profile';
 
 	use EntityTrait;    
     
-	public static function create(string $id, ?stdClass $data=null)
+	public static function create(string $id, ?stdClass $data=null) : EntityInterface
 	{
 		$model = Model::createFromJsonFile(self::$schemaFile);
 		return static($model, $id, $data)
