@@ -74,7 +74,7 @@ $entity = Entity::createFromJsonFile('./models/profile.json', $id);
 $entity->name = 'Kedibey';
 $entity->age = 11;
 $entity->email = 'kedibey@world-of-wonderful-cats-yay.com';
-$entity->website = 'orld-of-wonderful-cats-yay.com';
+$entity->website = 'world-of-wonderful-cats-yay.com';
 $entity->location = new stdClass();
 $entity->location->country = 'TR';
 $entity->location->address = 'Kadıköy, İstanbul';
@@ -104,7 +104,7 @@ $entity = Entity::createFromJsonFile('./models/profile.json', $id);
 $entity->name = 'Kedibey';
 $entity->age = 11;
 $entity->email = 'kedibey@world-of-wonderful-cats-yay.com';
-$entity->website = 'orld-of-wonderful-cats-yay.com';
+$entity->website = 'world-of-wonderful-cats-yay.com';
 
 $partiallyValidateFields = ['name', 'age', 'email', 'website'];
 
@@ -130,7 +130,7 @@ use Selami\Entity\ValueObjectTrait;
 
 final ProfileValueObject implements ValueObjectInterface
 {
-	private static schemaFile = 'models/profile';
+	private static schemaFile = 'models/profile.json';
 
 	use ValueObject;    
     
@@ -158,7 +158,7 @@ use Selami\Entity\EntityTrait;
 
 final ProfileEntity implements EntityInterface
 {
-	private static schemaFile = 'models/profile';
+	private static schemaFile = 'models/profile.json';
 
 	use EntityTrait;    
     
