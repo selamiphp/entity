@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Selami\Entity;
 
-use JsonSerializable;
+use Selami\Entity\Interfaces\ValueObjectInterface;
 
-class ValueObject implements JsonSerializable
+class ValueObject implements ValueObjectInterface
 {
     use ValueObjectTrait;
 }

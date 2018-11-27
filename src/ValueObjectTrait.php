@@ -6,6 +6,7 @@ namespace Selami\Entity;
 use stdClass;
 use Selami\Entity\Exception\UnexpectedValueException;
 use Selami\Entity\Exception\BadMethodCallException;
+use Selami\Entity\Interfaces\ValueObjectInterface;
 
 trait ValueObjectTrait
 {
@@ -28,7 +29,7 @@ trait ValueObjectTrait
         throw new BadMethodCallException('Can\'t manipulate Immutable Object');
     }
 
-    public static function createFromJsonFile($filePath, stdClass $data) : ValueObject
+    public static function createFromJsonFile(string $filePath, stdClass $data) : ValueObjectInterface
     {
         if (!file_exists($filePath)) {
             throw new UnexpectedValueException(sprintf('Model definition file (%s) does not exist!', $filePath));
@@ -37,7 +38,7 @@ trait ValueObjectTrait
         return static::createFromJson($json, $data);
     }
 
-    public static function createFromJson($json, stdClass $data) : ValueObject
+    public static function createFromJson(string $json, stdClass $data) : ValueObjectInterface
     {
         return new static(new Model($json), $data);
     }

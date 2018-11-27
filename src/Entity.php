@@ -1,10 +1,11 @@
 <?php
 declare(strict_types=1);
+
 namespace Selami\Entity;
 
-use JsonSerializable;
+use Selami\Entity\Interfaces\EntityInterface;
 
-class Entity implements JsonSerializable
+class Entity implements EntityInterface
 {
     use EntityTrait;
 }

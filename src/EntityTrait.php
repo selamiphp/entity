@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Selami\Entity;
 
 use stdClass;
-
+use Selami\Entity\Interfaces\EntityInterface;
 use Selami\Entity\Exception\UnexpectedValueException;
 
 trait EntityTrait
@@ -31,7 +31,7 @@ trait EntityTrait
         unset($this->data->{$name});
     }
 
-    public static function createFromJsonFile($filePath, string $id) : Entity
+    public static function createFromJsonFile(string $filePath, string $id) : EntityInterface
     {
         if (!file_exists($filePath)) {
             throw new UnexpectedValueException(sprintf('Model definition file (%s) does not exist!', $filePath));
@@ -40,7 +40,7 @@ trait EntityTrait
         return static::createFromJson($json, $id);
     }
 
-    public static function createFromJson($json, string $id) : Entity
+    public static function createFromJson(string $json, string $id) : EntityInterface
     {
         return new static(new Model($json), $id);
     }
