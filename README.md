@@ -89,7 +89,7 @@ $entity->validate();
 
 ```
 
-#### Partially Validation
+#### Partial Validation
 
 ```php
 <?php
