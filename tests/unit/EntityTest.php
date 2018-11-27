@@ -3,7 +3,6 @@
 use Selami\Entity\Entity;
 use Selami\Entity\Model;
 use Ramsey\Uuid\Uuid;
-use Selami\Entity\Exception\UnexpectedValueException;
 
 class EntityTest extends \Codeception\Test\Unit
 {
@@ -25,7 +24,8 @@ class EntityTest extends \Codeception\Test\Unit
      */
     public function shouldReturnEntityObjectSuccessfully() : void
     {
-        $entity = Entity::createFromJsonFile(__DIR__.'/../resources/test-schema.json');
+        $id = Uuid::uuid4();
+        $entity = Entity::createFromJsonFile(__DIR__.'/../resources/test-schema.json', $id);
         $entity->name = 'John Doe';
         $entity->age = 31;
         $entity->email = "john@example.com";
@@ -52,7 +52,8 @@ class EntityTest extends \Codeception\Test\Unit
      */
     public function shouldValidatePartiallySuccessfully() : void
     {
-        $entity = Entity::createFromJsonFile(__DIR__.'/../resources/test-schema.json');
+        $id = Uuid::uuid4();
+        $entity = Entity::createFromJsonFile(__DIR__.'/../resources/test-schema.json', $id);
         $entity->name = 'John Doe';
         $entity->age = 31;
         $requiredFields = ['name', 'age'];
@@ -66,25 +67,22 @@ class EntityTest extends \Codeception\Test\Unit
      */
     public function shouldCompareTwoEntityObjectSuccessfully() : void
     {
-        $id = Uuid::uuid4()->toString();
-        $entity1 = Entity::createFromJsonFile(__DIR__.'/../resources/test-schema.json');
-        $entity2 = Entity::createFromJsonFile(__DIR__.'/../resources/test-schema.json');
-        $entity3 = Entity::createFromJsonFile(__DIR__.'/../resources/test-schema.json');
+        $id = Uuid::uuid4();
+        $entity1 = Entity::createFromJsonFile(__DIR__.'/../resources/test-schema.json', $id);
+        $entity2 = Entity::createFromJsonFile(__DIR__.'/../resources/test-schema.json', $id);
+        $entity3 = Entity::createFromJsonFile(__DIR__.'/../resources/test-schema.json', $id);
 
         $entity1->name = 'Kedibey';
-        $entity1->id= $id;
         $entity1->details = new stdClass();
         $entity1->details->age = 11;
         $entity1->details->type = 'Angora';
 
         $entity2->name = 'Kedibey';
-        $entity2->id= $id;
         $entity2->details = new stdClass();
         $entity2->details->age = 11;
         $entity2->details->type = 'Angora';
 
         $entity3->name = 'Kedibey';
-        $entity3->id= $id;
         $entity3->details = new stdClass();
         $entity3->details->age = 11;
         $entity3->details->type = 'Van';
@@ -102,8 +100,9 @@ class EntityTest extends \Codeception\Test\Unit
      */
     public function shouldFailForRequiredInput() : void
     {
+        $id = Uuid::uuid4();
         $model = Model::createFromJsonFile(__DIR__.'/../resources/test-schema.json');
-        $entity = new Entity($model);
+        $entity = new Entity($model, $id);
         $entity->name = 'John Doe';
         $entity->age = 31;
         $entity->email = "john@example.com";
@@ -117,6 +116,7 @@ class EntityTest extends \Codeception\Test\Unit
      */
     public function shouldFailForAModelFileDoesNotExist() : void
     {
-        Entity::createFromJsonFile(__DIR__.'/../resources/test-schema-no-file.json');
+        $id = Uuid::uuid4();
+        Entity::createFromJsonFile(__DIR__.'/../resources/test-schema-no-file.json', $id);
     }
 }

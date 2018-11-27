@@ -23,6 +23,7 @@ final class Model
     {
         return $this->model;
     }
+
     public function getRequiredFields() : array
     {
         return $this->requiredFields;
