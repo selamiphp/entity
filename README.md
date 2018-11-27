@@ -140,6 +140,7 @@ final ProfileValueObject implements ValueObjectInterface
 		return static($model, $data)
 	}
 }
+```
 
 
 #### Entity Example
