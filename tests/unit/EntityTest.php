@@ -24,7 +24,7 @@ class EntityTest extends \Codeception\Test\Unit
      */
     public function shouldReturnEntityObjectSuccessfully() : void
     {
-        $id = Uuid::uuid4();
+        $id = Uuid::uuid4()->toString();
         $entity = Entity::createFromJsonFile(__DIR__.'/../resources/test-schema.json', $id);
         $entity->name = 'John Doe';
         $entity->age = 31;
@@ -52,7 +52,7 @@ class EntityTest extends \Codeception\Test\Unit
      */
     public function shouldValidatePartiallySuccessfully() : void
     {
-        $id = Uuid::uuid4();
+        $id = Uuid::uuid4()->toString();
         $entity = Entity::createFromJsonFile(__DIR__.'/../resources/test-schema.json', $id);
         $entity->name = 'John Doe';
         $entity->age = 31;
@@ -67,7 +67,7 @@ class EntityTest extends \Codeception\Test\Unit
      */
     public function shouldCompareTwoEntityObjectSuccessfully() : void
     {
-        $id = Uuid::uuid4();
+        $id = Uuid::uuid4()->toString();
         $entity1 = Entity::createFromJsonFile(__DIR__.'/../resources/test-schema.json', $id);
         $entity2 = Entity::createFromJsonFile(__DIR__.'/../resources/test-schema.json', $id);
         $entity3 = Entity::createFromJsonFile(__DIR__.'/../resources/test-schema.json', $id);
@@ -100,7 +100,7 @@ class EntityTest extends \Codeception\Test\Unit
      */
     public function shouldFailForRequiredInput() : void
     {
-        $id = Uuid::uuid4();
+        $id = Uuid::uuid4()->toString();
         $model = Model::createFromJsonFile(__DIR__.'/../resources/test-schema.json');
         $entity = new Entity($model, $id);
         $entity->name = 'John Doe';
@@ -116,7 +116,7 @@ class EntityTest extends \Codeception\Test\Unit
      */
     public function shouldFailForAModelFileDoesNotExist() : void
     {
-        $id = Uuid::uuid4();
+        $id = Uuid::uuid4()->toString();
         Entity::createFromJsonFile(__DIR__.'/../resources/test-schema-no-file.json', $id);
     }
 }

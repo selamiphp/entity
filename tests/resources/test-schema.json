@@ -5,9 +5,7 @@
   "properties": {
     "id": {
       "type": "string",
-      "minLength": 36,
-      "maxLength": 36,
-      "pattern": "^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$"
+      "format": "uuid"
     },
     "name": {
       "type": "string",
