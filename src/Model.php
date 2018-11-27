@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Selami\Entity;
 
+use stdClass;
 use Opis\JsonSchema\Schema;
 use Selami\Entity\Exception\UnexpectedValueException;
 
@@ -19,7 +20,7 @@ final class Model
         }
     }
 
-    public function getModel() : \stdClass
+    public function getModel() : stdClass
     {
         return $this->model;
     }
@@ -29,7 +30,7 @@ final class Model
         return $this->requiredFields;
     }
 
-    public function getSchema(?\stdClass $model = null)  : Schema
+    public function getSchema(?stdClass $model = null)  : Schema
     {
         if ($model !== null) {
             return new Schema($model);
@@ -42,6 +43,6 @@ final class Model
         if (!file_exists($filePath)) {
             throw new UnexpectedValueException(sprintf('Model definition file (%s) does not exist!', $filePath));
         }
-        return new self(file_get_contents($filePath));
+        return new static(file_get_contents($filePath));
     }
 }
