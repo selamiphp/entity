@@ -21,6 +21,16 @@ final class Entity implements JsonSerializable
         $this->data->id = $id;
     }
 
+    public function __set($name, $value) : void
+    {
+        $this->data->{$name} = $value;
+    }
+
+    public function __unset($name)
+    {
+        unset($this->data->{$name});
+    }
+
     public static function createFromJsonFile($filePath, string $id) : Entity
     {
         if (!file_exists($filePath)) {

@@ -40,7 +40,7 @@ class EntityTest extends \Codeception\Test\Unit
         $item->value = 100;
         $entity->skills = [$item];
         $this->assertTrue($entity->validate());
-        $arrayFromJson = json_decode($entity, true);
+        $arrayFromJson = json_decode(json_encode($entity), true);
         $this->assertEquals(31, $arrayFromJson['age']);
         $this->assertTrue(isset($entity->name));
         unset($entity->name);
@@ -62,6 +62,7 @@ class EntityTest extends \Codeception\Test\Unit
         $this->expectException(\Selami\Entity\Exception\InvalidArgumentException::class);
         $entity->validatePartially($requiredFields);
     }
+
     /**
      * @test
      */
@@ -90,9 +91,6 @@ class EntityTest extends \Codeception\Test\Unit
         $this->assertTrue($entity1->equals($entity2));
         $this->assertFalse($entity1->equals($entity3));
     }
-
-
-
 
     /**
      * @test

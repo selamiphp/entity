@@ -24,27 +24,17 @@ trait ObjectTrait
         return $this->data->{$name};
     }
 
-    public function __set($name, $value) : void
-    {
-        $this->data->{$name} = $value;
-    }
-
     public function __isset($name) : bool
     {
         return property_exists($this->data, $name);
     }
 
-    public function __unset($name)
-    {
-        unset($this->data->{$name});
-    }
-
-    public function validate() : bool
+    final public function validate() : bool
     {
         return $this->validateData($this->data, $this->model->getSchema());
     }
 
-    public function validatePartially(array $requiredFields) : bool
+    final public function validatePartially(array $requiredFields) : bool
     {
         $model = $this->model->getModel();
         $model->required = $requiredFields;
@@ -75,16 +65,11 @@ trait ObjectTrait
 
     public function equals($rightHandedObject) : bool
     {
-        return (string) $this === (string) $rightHandedObject;
+        return (string) json_encode($this->data) === (string) json_encode($rightHandedObject);
     }
 
     public function jsonSerialize() : stdClass
     {
         return $this->data;
-    }
-
-    public function __toString() : string
-    {
-        return (string) json_encode($this);
     }
 }
