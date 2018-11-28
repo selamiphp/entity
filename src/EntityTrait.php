@@ -23,6 +23,9 @@ trait EntityTrait
 
     public function __set($name, $value) : void
     {
+        if ($name === 'id') {
+            throw new InvalidArgumentException('You can not change the "id" of an entity!');
+        }
         $this->data->{$name} = $value;
     }
 
