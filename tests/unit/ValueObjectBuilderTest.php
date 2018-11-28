@@ -33,7 +33,6 @@ class ValueObjectBuilderTest extends \Codeception\Test\Unit
             ->withExpireDateYear(24)
             ->withCvvNumber('937')
             ->build();
-
         $this->assertEquals('Kedibey', $valueObject->cardHolderName);
     }
 
