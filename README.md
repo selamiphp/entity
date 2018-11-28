@@ -7,7 +7,7 @@ Framework agnostic entity/value object library to assert variable types and valu
 
 ## Motivation
 
-This library is a kind of helper library to generate your own Entity or Value Object models using JSON Schema. It is not expected to use classes in this library directly. To understand differences between Entities and Value Objects read Philip Brown's Post on [culttt.com](https://www.culttt.com/2014/04/30/difference-entities-value-objects/)
+This library is a kind of helper library to generate your own Entity or Value Object models using JSON Schema. It is not expected to use classes in this library directly. To understand differences between Entities and Value Objects read Philip Brown's post on [culttt.com](https://www.culttt.com/2014/04/30/difference-entities-value-objects/)
 
 
 ## Installation 
