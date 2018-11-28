@@ -26,12 +26,14 @@ class ModelTest extends \Codeception\Test\Unit
         $model = Model::createFromJsonFile(__DIR__.'/../resources/test-schema.json');
         $schema = $model->getSchema();
         $this->assertEquals('http://api.example.com/profile.json#', $schema->id());
-
         $jsonSchema = file_get_contents(__DIR__.'/../resources/test-schema.json');
         $tmpSchema = json_decode($jsonSchema);
         $requiredFields = $tmpSchema->required;
         $model = new Model($jsonSchema);
-        $this->assertEquals($tmpSchema, $model->getModel());
+        $processedModel = $model->getModel();
+        $baseId = '$_base_id';
+        unset($processedModel->{$baseId});
+        $this->assertEquals($tmpSchema, $processedModel);
         $modelRequiredFields = $model->getRequiredFields();
         $this->assertEquals($modelRequiredFields, $requiredFields);
         $schema = $model->getSchema($tmpSchema);
