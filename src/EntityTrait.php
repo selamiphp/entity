@@ -3,15 +3,16 @@ declare(strict_types=1);
 
 namespace Selami\Entity;
 
-use Selami\Entity\Exception\InvalidArgumentException;
 use stdClass;
 use Selami\Entity\Interfaces\EntityInterface;
+use Selami\Entity\Exception\SettingValueForInvalidPropertyException;
+use Selami\Entity\Exception\OverridingIdentityOfEntityException;
 use Selami\Entity\Exception\CouldNotFindJSONSchemaFileException;
+use function in_array;
 
 trait EntityTrait
 {
     use ObjectTrait;
-
     public function __construct(Model $model, string $id, ?stdClass $data = null)
     {
         $this->model = $model;
@@ -25,7 +26,10 @@ trait EntityTrait
     public function __set($name, $value) : void
     {
         if ($name === 'id') {
-            throw new InvalidArgumentException('You can not change the "id" of an entity!');
+            throw new OverridingIdentityOfEntityException('You can not change the "id" of an entity!');
+        }
+        if (!in_array($name, $this->model->getProperties(), true)) {
+            throw new SettingValueForInvalidPropertyException('You can not set value for invalid property!');
         }
         $this->data->{$name} = $value;
     }
