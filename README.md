@@ -7,7 +7,7 @@ Framework agnostic entity/value object library to assert variable types and valu
 
 ## Motivation
 
-This library is a kind of helper library to generate your own Entity or Value Object models using JSON Schema. It is not expected to use classes in this library directly. To understand differences between Entities and Value Objects read Philip Brown's post on [culttt.com](https://www.culttt.com/2014/04/30/difference-entities-value-objects/)
+This library is a kind of helper library to generate your own Entity or Value Object models using JSON Schema. It is not expected to use classes in this library directly (See Examples for intended usage section below). To understand differences between Entities and Value Objects read Philip Brown's post on [culttt.com](https://www.culttt.com/2014/04/30/difference-entities-value-objects/)
 
 
 ## Installation 
@@ -16,50 +16,59 @@ This library is a kind of helper library to generate your own Entity or Value Ob
 composer require selami/entity
 ```
 
-## Usage
-
-Say you have a JSON Schema file at ./models/profile.json. See the Value Object model [ file content](https://github.com/selamiphp/entity/blob/master/tests/resources/test-schema-value-object.json).
 
 ### Value Objects ([See explaination](https://martinfowler.com/bliki/ValueObject.html))
 
 - Objects created using ValueObject are [Immutable](https://en.wikipedia.org/wiki/Immutable_object). This means only data injecting point is its constructor. 
 - It validates data on object creation
 - If validation fails it throws InvalidArgumentException.
+- Always use ValueObjectBuilder to create a ValueObject instance. 
+
+
+##### Convention using ValueObjectBuilder
+
+- Uppercase first character of property name.
+- Then add "with" prefix to property name.
+
+i.e. Say our property name is creditCardNumber, then setter method name for this property is withCreditCardNumber.
+
+#### Usage
+
+Say you have a JSON Schema file at ./models/credit-card.json. See [the Credit Card Value Object Schema](https://github.com/selamiphp/entity/blob/master/tests/resources/test-schema-credit-card-value-object.json). 
+
 
 ```php
 <?php
 declare(strict_types=1);
 
-use Selami\Entity\ValueObject;
-use stdClass;
+use Selami\Entity\ValueObjectBuilder;
 
-$data = new stdClass();
-$data->name = 'Kedibey';
-$data->age = 11;
-$data->email = 'kedibey@world-of-wonderful-cats-yay.com';
-$data->website = 'orld-of-wonderful-cats-yay.com';
-$data->location = new stdClass();
-$data->location->country = 'TR';
-$data->location->address = 'Kadıköy, İstanbul';
-$data->available_for_hire = true;
-$data->interests = ['napping', 'eating', 'bird gazing'];
-$data->skills = [];
-$data->skills[0] = new stdClass();
-$data->skills[0]->name = 'PHP';
-$data->skills[0]->value = 0;
+$creditCard = ValueObjectBuilder::createFromJsonFile(
+	'.model/credit-card.json'
+)
+	->withCardNumber('5555555555555555')
+	->withCardHolderName('Kedibey Mırmır')
+	->withExpireDateMonth(8)
+	->withExpireDateYear(24)
+	->withCvvNumber('937')
+	->build();
 
-$valueObject = ValueObject::createFromJsonFile('./models/profile.json', $data);
+echo $creditCard->cardHolderName;
 
 ```
 
 ### Entities
 
 - Entities require id property.
-- Entities are not Immutable.
+- Entities are mutable.
 - Entities are not automatically validated on object creation.
 - When validation failed it throws InvalidArgumentException.
 - It is possible to partially validate Entities.
 - It can be used to form data validation, data validation before persisting it, etc...
+
+#### Usage
+
+Say you have a JSON Schema file at ./models/profile.json. See [the Profile Entity Schema](https://github.com/selamiphp/entity/blob/master/tests/resources/test-schema-value-object.json).
 
 ```php
 <?php
@@ -86,7 +95,6 @@ $entity->skills[0]->name = 'PHP';
 $entity->skills[0]->value = 0;
 
 $entity->validate();
-
 ```
 
 #### Partial Validation
@@ -109,11 +117,10 @@ $entity->website = 'world-of-wonderful-cats-yay.com';
 $partiallyValidateFields = ['name', 'age', 'email', 'website'];
 
 $entity->validatePartially(partiallyValidateFields);
-
 ```
 
 
-### Example of intended usage
+### Examples for intended usage
 
 #### Value Object Example
 
@@ -123,23 +130,37 @@ declare(strict_types=1);
 
 namespace MyLibrary\ValueObject;
 
-use Selami\Entity\Interfaces\ValueObjectInterface;
-use stdClass;
-use Selami\Entity\Model;
-use Selami\Entity\ValueObjectTrait;
+use Selami\Entity\ValueObjectBuilder;
 
-final ProfileValueObject implements ValueObjectInterface
+final class CreditCard
 {
-	private static schemaFile = 'models/profile.json';
+    private static $schemaFile = './models/credit-card.json';
 
-	use ValueObject;    
-    
-	public static function create(stdClass $data) : ValueObjectInterface
-	{
-		$model = Model::createFromJsonFile(self::$schemaFile);
-		return static($model, $data)
-	}
+    public static function create() : ValueObjectBuilder
+    {
+        return ValueObjectBuilder::createFromJsonFile(self::$schemaFile);
+    }
 }
+```
+
+```php
+<?php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use MyLibrary\ValueObject\CreditCard;
+
+$valueObject = CreditCard::create()
+    ->withCardNumber('5555555555555555')
+    ->withCardHolderName('Kedibey Mırmır')
+    ->withExpireDateMonth(8)
+    ->withExpireDateYear(24)
+    ->withCvvNumber('937')
+    ->build();
+
+// Prints "Kedibey Mırmır"
+var_dump($valueObject->cardHolderName);
 ```
 
 
@@ -156,16 +177,36 @@ use stdClass;
 use Selami\Entity\Model;
 use Selami\Entity\EntityTrait;
 
-final ProfileEntity implements EntityInterface
+final class Profile implements EntityInterface
 {
-	private static schemaFile = 'models/profile.json';
+	private static $schemaFile = '.models/profile.json';
 
-	use EntityTrait;    
-    
+	use EntityTrait;
+
 	public static function create(string $id, ?stdClass $data=null) : EntityInterface
 	{
 		$model = Model::createFromJsonFile(self::$schemaFile);
-		return static($model, $id, $data)
+		return new static($model, $id, $data);
 	}
 }
 
+```
+
+```php
+<?php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use Ramsey\Uuid\Uuid;
+
+$id = Uuid::uuid4()->toString();
+
+$entity = Profile::create($id);
+$entity->name = 'Kedibey';
+
+// Prints "Kedibey"
+var_dump($entity->name);
+
+// Throws "Selami\Entity\Exception\InvalidArgumentException"
+$entity->validate();
