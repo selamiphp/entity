@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "http://api.example.com/profile.json#",
+  "$id": "http://api.example.com/credit-card.json#",
   "type": "object",
   "properties": {
     "cardHolderName": {
