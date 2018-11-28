@@ -25,7 +25,7 @@ composer require selami/entity
 - Always use ValueObjectBuilder to create a ValueObject instance. 
 
 
-##### Convention using ValueObjectBuilder
+##### Convention when using ValueObjectBuilder
 
 - Uppercase first character of property name.
 - Then add "with" prefix to property name.
