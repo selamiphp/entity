@@ -6,6 +6,7 @@ namespace Selami\Entity;
 use Selami\Entity\Exception\InvalidArgumentException;
 use stdClass;
 use Selami\Entity\Interfaces\EntityInterface;
+use Selami\Entity\Exception\CouldNotFindJSONSchemaFileException;
 
 trait EntityTrait
 {
@@ -34,12 +35,14 @@ trait EntityTrait
         unset($this->data->{$name});
     }
 
-    public static function createFromJsonFile(string $filePath, string $id) : EntityInterface
+    public static function createFromJsonFile(string $jsonFilePath, string $id) : EntityInterface
     {
-        if (!file_exists($filePath)) {
-            throw new InvalidArgumentException(sprintf('Model definition file (%s) does not exist!', $filePath));
+        if (!file_exists($jsonFilePath)) {
+            throw new CouldNotFindJSONSchemaFileException(
+                sprintf('Json Schema file(%s) does not exist!', $jsonFilePath)
+            );
         }
-        $json = file_get_contents($filePath);
+        $json = file_get_contents($jsonFilePath);
         return static::createFromJson($json, $id);
     }
 
