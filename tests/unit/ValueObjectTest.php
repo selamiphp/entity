@@ -135,7 +135,7 @@ class ValueObjectTest extends \Codeception\Test\Unit
 
     /**
      * @test
-     * @expectedException \Selami\Entity\Exception\UnexpectedValueException
+     * @expectedException \Selami\Entity\Exception\InvalidArgumentException
      */
     public function shouldFailForAModelFileDoesNotExist() : void
     {

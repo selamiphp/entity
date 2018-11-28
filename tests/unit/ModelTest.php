@@ -1,7 +1,7 @@
 <?php
 
 use Selami\Entity\Model;
-use Selami\Entity\Exception\UnexpectedValueException;
+use Selami\Entity\Exception\InvalidArgumentException;
 
 class ModelTest extends \Codeception\Test\Unit
 {
@@ -40,7 +40,7 @@ class ModelTest extends \Codeception\Test\Unit
 
     /**
      * @test
-     * @expectedException UnexpectedValueException
+     * @expectedException InvalidArgumentException
      */
     public function shouldFailForAFileThatDoesNotExist() : void
     {

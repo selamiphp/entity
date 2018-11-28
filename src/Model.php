@@ -5,7 +5,7 @@ namespace Selami\Entity;
 
 use stdClass;
 use Opis\JsonSchema\Schema;
-use Selami\Entity\Exception\UnexpectedValueException;
+use Selami\Entity\Exception\InvalidArgumentException;
 
 final class Model
 {
@@ -41,7 +41,7 @@ final class Model
     public static function createFromJsonFile(string $filePath) : Model
     {
         if (!file_exists($filePath)) {
-            throw new UnexpectedValueException(sprintf('Model definition file (%s) does not exist!', $filePath));
+            throw new InvalidArgumentException(sprintf('Model definition file (%s) does not exist!', $filePath));
         }
         return new static(file_get_contents($filePath));
     }

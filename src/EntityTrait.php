@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Selami\Entity;
 
+use Selami\Entity\Exception\InvalidArgumentException;
 use stdClass;
 use Selami\Entity\Interfaces\EntityInterface;
-use Selami\Entity\Exception\UnexpectedValueException;
 
 trait EntityTrait
 {
@@ -37,7 +37,7 @@ trait EntityTrait
     public static function createFromJsonFile(string $filePath, string $id) : EntityInterface
     {
         if (!file_exists($filePath)) {
-            throw new UnexpectedValueException(sprintf('Model definition file (%s) does not exist!', $filePath));
+            throw new InvalidArgumentException(sprintf('Model definition file (%s) does not exist!', $filePath));
         }
         $json = file_get_contents($filePath);
         return static::createFromJson($json, $id);
