@@ -44,7 +44,7 @@ declare(strict_types=1);
 use Selami\Entity\ValueObjectBuilder;
 
 $creditCard = ValueObjectBuilder::createFromJsonFile(
-	'.model/credit-card.json'
+	'./models/credit-card.json'
 )
 	->withCardNumber('5555555555555555')
 	->withCardHolderName('Kedibey Mırmır')
@@ -179,7 +179,7 @@ use Selami\Entity\EntityTrait;
 
 final class Profile implements EntityInterface
 {
-	private static $schemaFile = '.models/profile.json';
+	private static $schemaFile = './models/profile.json';
 
 	use EntityTrait;
 
