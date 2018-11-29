@@ -31,6 +31,7 @@ class ValueObjectBuilder
         }
         return self::createFromJsonString(file_get_contents($jsonFilePath));
     }
+
     public static function createFromJsonString(string $jsonString) : ValueObjectBuilder
     {
         return new self($jsonString);
