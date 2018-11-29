@@ -22,7 +22,7 @@ class ValueObjectBuilder
         $this->properties = (new Model($jsonSchema))->getProperties();
     }
 
-    public static function createFromJsonFile(string $jsonFilePath) : ValueObjectBuilder
+    public static function createFromJsonFile(string $jsonFilePath) : self
     {
         if (!file_exists($jsonFilePath)) {
             throw new CouldNotFindJSONSchemaFileException(
@@ -32,7 +32,7 @@ class ValueObjectBuilder
         return self::createFromJsonString(file_get_contents($jsonFilePath));
     }
 
-    public static function createFromJsonString(string $jsonString) : ValueObjectBuilder
+    public static function createFromJsonString(string $jsonString) : self
     {
         return new self($jsonString);
     }

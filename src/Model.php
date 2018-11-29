@@ -58,11 +58,11 @@ final class Model
         return new Schema($this->model);
     }
 
-    public static function createFromJsonFile(string $filePath) : Model
+    public static function createFromJsonFile(string $filePath) : self
     {
         if (!file_exists($filePath)) {
             throw new InvalidArgumentException(sprintf('Model definition file (%s) does not exist!', $filePath));
         }
-        return new static(file_get_contents($filePath));
+        return new self(file_get_contents($filePath));
     }
 }

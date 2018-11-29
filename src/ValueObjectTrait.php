@@ -35,11 +35,11 @@ trait ValueObjectTrait
             throw new InvalidArgumentException(sprintf('Model definition file (%s) does not exist!', $filePath));
         }
         $json = file_get_contents($filePath);
-        return static::createFromJson($json, $data);
+        return self::createFromJson($json, $data);
     }
 
     public static function createFromJson(string $json, stdClass $data) : ValueObjectInterface
     {
-        return new static(new Model($json), $data);
+        return new self(new Model($json), $data);
     }
 }

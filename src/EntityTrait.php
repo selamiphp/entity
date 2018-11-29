@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Selami\Entity;
 
-use stdClass;
 use Selami\Entity\Interfaces\EntityInterface;
+use stdClass;
 use Selami\Entity\Exception\SettingValueForInvalidPropertyException;
 use Selami\Entity\Exception\OverridingIdentityOfEntityException;
 use Selami\Entity\Exception\CouldNotFindJSONSchemaFileException;
@@ -13,6 +13,7 @@ use function in_array;
 trait EntityTrait
 {
     use ObjectTrait;
+
     public function __construct(Model $model, string $id, ?stdClass $data = null)
     {
         $this->model = $model;
@@ -47,12 +48,12 @@ trait EntityTrait
             );
         }
         $json = file_get_contents($jsonFilePath);
-        return static::createFromJson($json, $id);
+        return self::createFromJson($json, $id);
     }
 
     public static function createFromJson(string $json, string $id) : EntityInterface
     {
-        return new static(new Model($json), $id);
+        return new self(new Model($json), $id);
     }
 
     public function entityId() : string
