@@ -17,7 +17,7 @@ composer require selami/entity
 ```
 
 
-### Value Objects ([See explaination](https://martinfowler.com/bliki/ValueObject.html))
+### Value Objects ([See explanation](https://martinfowler.com/bliki/ValueObject.html))
 
 - Objects created using ValueObject are [Immutable](https://en.wikipedia.org/wiki/Immutable_object). This means only data injecting point is its constructor. 
 - It validates data on object creation
