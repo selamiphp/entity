@@ -14,7 +14,7 @@ trait EntityTrait
 {
     use ObjectTrait;
 
-    public function __construct(Model $model, string $id, ?stdClass $data = null)
+    final public function __construct(Model $model, string $id, ?stdClass $data = null)
     {
         $this->model = $model;
         $this->data = $data;
@@ -24,7 +24,7 @@ trait EntityTrait
         $this->data->id = $id;
     }
 
-    public function __set($name, $value) : void
+    final public function __set($name, $value) : void
     {
         if ($name === 'id') {
             throw new OverridingIdentityOfEntityException('You can not change the "id" of an entity!');
@@ -35,12 +35,12 @@ trait EntityTrait
         $this->data->{$name} = $value;
     }
 
-    public function __unset($name)
+    final public function __unset($name)
     {
         unset($this->data->{$name});
     }
 
-    public static function createFromJsonFile(string $jsonFilePath, string $id) : EntityInterface
+    final public static function createFromJsonFile(string $jsonFilePath, string $id) : EntityInterface
     {
         if (!file_exists($jsonFilePath)) {
             throw new CouldNotFindJSONSchemaFileException(
@@ -51,17 +51,17 @@ trait EntityTrait
         return self::createFromJson($json, $id);
     }
 
-    public static function createFromJson(string $json, string $id) : EntityInterface
+    final public static function createFromJson(string $json, string $id) : EntityInterface
     {
-        return new self(new Model($json), $id);
+        return new static(new Model($json), $id);
     }
 
-    public function entityId() : string
+    final public function entityId() : string
     {
         return $this->data->id;
     }
 
-    public function validatePartially(array $requiredFields) : bool
+    final public function validatePartially(array $requiredFields) : bool
     {
         $model = $this->model->getModel();
         $model->required = $requiredFields;

@@ -9,7 +9,7 @@ use Selami\Entity\Exception\CouldNotFindJSONSchemaFileException;
 use Selami\Entity\Exception\InvalidMethodNameException;
 use function in_array;
 
-class ValueObjectBuilder
+final class ValueObjectBuilder
 {
     private $jsonSchema;
     private $properties;

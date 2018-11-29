@@ -12,7 +12,7 @@ trait ValueObjectTrait
 {
     use ObjectTrait;
 
-    public function __construct(Model $model, stdClass $data)
+    final public function __construct(Model $model, stdClass $data)
     {
         $this->model = $model;
         $this->data = $data;
@@ -29,7 +29,7 @@ trait ValueObjectTrait
         throw new BadMethodCallException('Can\'t manipulate Immutable Object');
     }
 
-    public static function createFromJsonFile(string $filePath, stdClass $data) : ValueObjectInterface
+    final public static function createFromJsonFile(string $filePath, stdClass $data) : ValueObjectInterface
     {
         if (!file_exists($filePath)) {
             throw new InvalidArgumentException(sprintf('Model definition file (%s) does not exist!', $filePath));
@@ -38,8 +38,8 @@ trait ValueObjectTrait
         return self::createFromJson($json, $data);
     }
 
-    public static function createFromJson(string $json, stdClass $data) : ValueObjectInterface
+    final public static function createFromJson(string $json, stdClass $data) : ValueObjectInterface
     {
-        return new self(new Model($json), $data);
+        return new static(new Model($json), $data);
     }
 }

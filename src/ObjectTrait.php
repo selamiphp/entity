@@ -19,12 +19,12 @@ trait ObjectTrait
      */
     private $data;
 
-    public function __get($name)
+    final public function __get($name)
     {
         return $this->data->{$name};
     }
 
-    public function __isset($name) : bool
+    final public function __isset($name) : bool
     {
         return property_exists($this->data, $name);
     }
@@ -60,7 +60,7 @@ trait ObjectTrait
         return (string) json_encode($this->data) === (string) json_encode($rightHandedObject);
     }
 
-    public function jsonSerialize() : stdClass
+    final public function jsonSerialize() : stdClass
     {
         return $this->data;
     }
