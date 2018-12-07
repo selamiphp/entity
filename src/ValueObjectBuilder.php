@@ -50,8 +50,9 @@ final class ValueObjectBuilder
                 sprintf('Invalid property name (%s) for the defined schema!', $propertyName)
             );
         }
-        $this->data->{$propertyName} = $values[0];
-        return $this;
+        $new = clone $this;
+        $new->data->{$propertyName} = $values[0];
+        return $new;
     }
 
     public function build() : ValueObjectInterface
